@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader
 import config
 from crawler import collect_news
 from ai_processor import classify_article, rewrite_for_kids, select_headline
-from image_fetcher import get_article_image
+from image_fetcher import get_article_images
 
 
 def fallback_classify(article, categories):
