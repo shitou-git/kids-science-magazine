@@ -111,32 +111,55 @@ def generate_ai_image(prompt, size="1K", ratio="4:3"):
     try:
         base_url = getattr(config, 'AI_IMAGE_BASE_URL', config.AI_API_BASE_URL)
         model = getattr(config, 'AI_IMAGE_MODEL', 'agnes-image-2.1-flash')
+        
         url = f"{base_url}/images/generations"
         headers = {
             "Authorization": f"Bearer {config.AI_API_KEY}",
             "Content-Type": "application/json",
         }
         data = {
-            "model": "agnes-image-2.1-flash",
+            "model": model,
             "prompt": prompt,
+            "n": 1,
             "size": size,
             "ratio": ratio,
-            "extra_body": {
-                "response_format": "b64_json"
-            }
+            "response_format": "b64_json"
         }
+        
+        print(f"  📡 调用图片API: {url}")
         response = requests.post(url, headers=headers, json=data, timeout=60)
-        response.raise_for_status()
-        result = response.json()
-        if result.get("data") and result["data"][0]:
-            b64 = result["data"][0].get("b64_json")
-            if b64:
-                return b64
-            img_url = result["data"][0].get("url")
-            if img_url:
-                resp = requests.get(img_url, timeout=30)
-                resp.raise_for_status()
-                return base64.b64encode(resp.content).decode("utf-8")
+        print(f"  📤 响应状态: {response.status_code}")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if result.get("data") and isinstance(result["data"], list) and len(result["data"]) > 0:
+                b64 = result["data"][0].get("b64_json")
+                if b64:
+                    print("  ✓ 获取到Base64图片")
+                    return b64
+                img_url = result["data"][0].get("url")
+                if img_url:
+                    print(f"  📥 下载图片: {img_url[:30]}...")
+                    resp = requests.get(img_url, timeout=30)
+                    resp.raise_for_status()
+                    return base64.b64encode(resp.content).decode("utf-8")
+            else:
+                print(f"  ✗ 响应数据格式异常: {result}")
+        else:
+            print(f"  ✗ API调用失败: {response.text[:200]}")
+            
+    except requests.exceptions.SSLError as e:
+        print(f"  ⚠️ SSL连接错误，尝试禁用SSL验证: {e}")
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=60, verify=False)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get("data") and isinstance(result["data"], list) and len(result["data"]) > 0:
+                    b64 = result["data"][0].get("b64_json")
+                    if b64:
+                        return b64
+        except Exception as ee:
+            print(f"  ✗ 重试失败: {ee}")
     except Exception as e:
         print(f"  AI图片生成失败: {e}")
     return None

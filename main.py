@@ -303,119 +303,371 @@ def create_homepage():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>少年科普周刊</title>
+    <title>少年科普周刊 - 阳光少年报风格</title>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #FFF5E6 0%, #FFF0D4 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             color: #333;
         }}
-        .container {{
+        .header {{
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 60px 20px 40px;
             text-align: center;
-            padding: 40px;
-            max-width: 600px;
+            position: relative;
+            overflow: hidden;
         }}
-        .logo {{ font-size: 80px; margin-bottom: 20px; }}
-        h1 {{
+        .header::before {{
+            content: '★';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 48px;
+            color: rgba(255,255,255,0.3);
+            animation: spin 10s linear infinite;
+        }}
+        .header::after {{
+            content: '☆';
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
             font-size: 36px;
+            color: rgba(255,255,255,0.3);
+            animation: spin 12s linear infinite reverse;
+        }}
+        @keyframes spin {{
+            from {{ transform: rotate(0deg); }}
+            to {{ transform: rotate(360deg); }}
+        }}
+        .logo-box {{
+            display: inline-block;
+            background: rgba(255,255,255,0.95);
+            padding: 12px 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }}
+        .logo-text {{
+            font-size: 20px;
+            font-weight: 800;
+            color: #FF6B35;
+            letter-spacing: 4px;
+        }}
+        h1 {{
+            font-size: 48px;
             font-weight: 900;
             color: #fff;
-            text-shadow: 2px 4px 8px rgba(0,0,0,0.15);
             margin-bottom: 12px;
-            letter-spacing: 4px;
+            letter-spacing: 8px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.2);
         }}
         .subtitle {{
             font-size: 16px;
             color: rgba(255,255,255,0.9);
-            letter-spacing: 8px;
-            margin-bottom: 40px;
+            letter-spacing: 10px;
+            font-weight: 500;
         }}
-        .card {{
+        .feature-box {{
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }}
+        .feature-item {{
             background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF6B35;
+            box-shadow: 0 4px 16px rgba(255,107,53,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }}
-        .btn {{
+        .main-content {{
+            max-width: 900px;
+            margin: -30px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }}
+        .hero-card {{
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.1);
+            text-align: center;
+        }}
+        .hero-image {{
+            width: 100%;
+            height: 280px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+        }}
+        .hero-title {{
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }}
+        .hero-desc {{
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }}
+        .btn-primary {{
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             color: #fff;
-            padding: 14px 36px;
+            padding: 16px 48px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 16px;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 16px rgba(102,126,234,0.4);
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 6px 24px rgba(255,107,53,0.35);
         }}
-        .btn:hover {{ transform: translateY(-2px); }}
-        .issues-list {{ margin-top: 30px; text-align: left; }}
-        .issues-list h3 {{
-            font-size: 14px;
-            color: #888;
+        .btn-primary:hover {{
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(255,107,53,0.45);
+        }}
+        .sections-grid {{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }}
+        .section-card {{
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid transparent;
+        }}
+        .section-card:hover {{
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+        }}
+        .section-card:nth-child(1) {{ border-top-color: #FF6B35; }}
+        .section-card:nth-child(2) {{ border-top-color: #4ECDC4; }}
+        .section-card:nth-child(3) {{ border-top-color: #45B7D1; }}
+        .section-card:nth-child(4) {{ border-top-color: #96CEB4; }}
+        .section-card:nth-child(5) {{ border-top-color: #FFEAA7; }}
+        .section-card:nth-child(6) {{ border-top-color: #DDA0DD; }}
+        .section-card:nth-child(7) {{ border-top-color: #98D8C8; }}
+        .section-card:nth-child(8) {{ border-top-color: #F7DC6F; }}
+        .section-icon {{
+            font-size: 40px;
             margin-bottom: 12px;
-            text-align: center;
+        }}
+        .section-title {{
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }}
+        .section-desc {{
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+        }}
+        .issues-section {{
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+        }}
+        .section-header {{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }}
+        .section-header h2 {{
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }}
+        .issues-list {{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }}
         .issue-link {{
-            display: block;
-            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
             background: #f8f9fa;
             border-radius: 12px;
-            margin-bottom: 8px;
             text-decoration: none;
             color: #333;
-            font-weight: 600;
             transition: all 0.3s;
         }}
         .issue-link:hover {{
-            background: #eef2ff;
+            background: #fff5e6;
             transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(255,107,53,0.1);
         }}
-        .issue-link .badge {{
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b9d, #feca57);
+        .issue-info {{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }}
+        .issue-number {{
+            font-size: 28px;
+            font-weight: 900;
+            color: #FF6B35;
+        }}
+        .issue-text {{
+            font-weight: 600;
+            font-size: 15px;
+        }}
+        .issue-date {{
+            font-size: 13px;
+            color: #999;
+        }}
+        .issue-badge {{
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
             color: #fff;
-            padding: 2px 10px;
-            border-radius: 20px;
+            padding: 6px 16px;
+            border-radius: 50px;
             font-size: 12px;
-            margin-left: 8px;
+            font-weight: 600;
         }}
         .footer {{
-            margin-top: 30px;
-            font-size: 13px;
+            background: #2d3436;
             color: rgba(255,255,255,0.7);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }}
+        .footer-title {{
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }}
+        .footer-text {{
+            font-size: 14px;
+            margin-bottom: 6px;
+        }}
+        .footer-slogan {{
+            font-size: 13px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }}
+        @media (max-width: 768px) {{
+            h1 {{ font-size: 32px; letter-spacing: 4px; }}
+            .subtitle {{ font-size: 13px; letter-spacing: 6px; }}
+            .feature-box {{ gap: 12px; }}
+            .feature-item {{ padding: 10px 16px; font-size: 12px; }}
+            .hero-card {{ padding: 24px; }}
+            .hero-title {{ font-size: 22px; }}
+            .hero-image {{ height: 200px; }}
+            .btn-primary {{ padding: 14px 32px; font-size: 16px; }}
+            .sections-grid {{ grid-template-columns: 1fr; }}
+            .section-card {{ padding: 20px; }}
         }}
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🔬</div>
+    <header class="header">
+        <div class="logo-box">
+            <span class="logo-text">☀️ 阳光少年报风格</span>
+        </div>
         <h1>少年科普周刊</h1>
         <p class="subtitle">少 年 科 普 周 刊</p>
+        <div class="feature-box">
+            <div class="feature-item">📚 每周五发布</div>
+            <div class="feature-item">🔬 前沿科普</div>
+            <div class="feature-item">🌟 榜样力量</div>
+            <div class="feature-item">✨ 人格点亮</div>
+        </div>
+    </header>
 
-        <div class="card">
-            <a href="{latest["path"]}" class="btn">📖 阅读最新一期</a>
+    <main class="main-content">
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="科学探索" class="hero-image">
+            <h2 class="hero-title">开启奇妙的科学之旅</h2>
+            <p class="hero-desc">专为小学生打造的科普周刊，带你探索宇宙奥秘、发现自然神奇、了解前沿科技。让每个孩子都成为小小科学家！</p>
+            <a href="{latest["path"]}" class="btn-primary">📖 阅读最新一期</a>
         </div>
 
-        <div class="card">
-            <div class="issues-list">
-                <h3>📋 往期回顾</h3>
-{issue_links}
+        <div class="sections-grid">
+            <div class="section-card">
+                <div class="section-icon">🌟</div>
+                <h3 class="section-title">榜样力量</h3>
+                <p class="section-desc">认识时代先锋、平凡英雄，学习他们的优秀品质</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">🇨🇳</div>
+                <h3 class="section-title">中国故事</h3>
+                <p class="section-desc">了解祖国发展成就，增强文化自信</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">🌍</div>
+                <h3 class="section-title">多元世界</h3>
+                <p class="section-desc">探索全球动态，培养国际视野</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">💡</div>
+                <h3 class="section-title">科学创新</h3>
+                <p class="section-desc">追踪前沿科技，激发探索热情</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">🔮</div>
+                <h3 class="section-title">趣味自然</h3>
+                <p class="section-desc">发现奇趣知识，满足好奇心</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">🎨</div>
+                <h3 class="section-title">文化之旅</h3>
+                <p class="section-desc">感受历史文化，传承文明智慧</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">🗺️</div>
+                <h3 class="section-title">身边故事</h3>
+                <p class="section-desc">关注身边小事，发现温暖瞬间</p>
+            </div>
+            <div class="section-card">
+                <div class="section-icon">🎭</div>
+                <h3 class="section-title">漫画乐园</h3>
+                <p class="section-desc">轻松幽默漫画，快乐学习知识</p>
             </div>
         </div>
 
-        <div class="footer">
-            <p>每周五晚8点更新 · 带你探索科学的奇妙世界</p>
-            <p style="margin-top:8px;">保持好奇，热爱探索 🔬</p>
+        <div class="issues-section">
+            <div class="section-header">
+                <span>📋</span>
+                <h2>往期回顾</h2>
+            </div>
+            <div class="issues-list">
+{issue_links}
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-title">少年科普周刊</p>
+        <p class="footer-text">每周五晚8点，带你探索科学的奇妙世界</p>
+        <p class="footer-text">专为小学生打造的科普读物</p>
+        <p class="footer-slogan">保持好奇，热爱探索，每个孩子都是小小科学家 🔬</p>
+    </footer>
 </body>
 </html>'''
 
@@ -446,6 +698,7 @@ def run_weekly_task():
     raw_articles = collect_news()
     if not raw_articles:
         print("❌ 未采集到任何文章！")
+        create_homepage()
         return None
 
     categories = process_articles(raw_articles)

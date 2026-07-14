@@ -6,7 +6,7 @@ AI_API_BASE_URL = "https://api.chatlz.dpdns.org/v1"
 AI_API_KEY = os.environ.get("AGENS_AI_API_KEY", "sk-chatlz-proxy")
 AI_MODEL = "agnes-2.0-flash"
 
-AI_IMAGE_BASE_URL = "https://image.chatlz.dpdns.org/v1"
+AI_IMAGE_BASE_URL = "https://lmage.chatlz.dpdns.org/v1"
 AI_IMAGE_MODEL = "agnes-image-2.1-flash"
 
 SCHEDULE_DAY = "friday"
@@ -22,49 +22,49 @@ CATEGORIES = [
         "id": "headline",
         "name": "头版头条",
         "icon": "🌟",
-        "keywords": ["重大", "突破", "首次", "发现", "里程碑", "震惊", "重磅"]
+        "keywords": ["重大", "突破", "首次", "发现", "里程碑", "震惊", "重磅", "头条", "热点", "新闻"]
     },
     {
-        "id": "space",
-        "name": "航天宇宙",
-        "icon": "🚀",
-        "keywords": ["太空", "航天", "火箭", "卫星", "火星", "月球", "行星", "恒星", "黑洞", "宇宙", "星系", "宇航员", "NASA", "神舟", "天宫", "嫦娥", "天问", "空间站", "航天员", "探测器", "登月"]
+        "id": "hero",
+        "name": "榜样力量",
+        "icon": "⭐",
+        "keywords": ["榜样", "英雄", "先锋", "模范", "感动", "人物", "事迹", "奋斗", "坚持", "努力", "成就", "贡献", "科学家", "工程师", "宇航员", "冠军"]
     },
     {
-        "id": "physics",
-        "name": "物理世界",
-        "icon": "⚛️",
-        "keywords": ["物理", "量子", "粒子", "原子", "电子", "能量", "力", "重力", "引力", "电磁", "光", "声音", "速度", "相对论", "牛顿", "爱因斯坦", "超导", "激光", "芯片"]
+        "id": "china",
+        "name": "中国故事",
+        "icon": "🇨🇳",
+        "keywords": ["中国", "祖国", "国内", "科技", "航天", "工程", "建设", "成就", "发展", "创新", "突破", "制造", "研发", "技术", "高铁", "航天", "量子", "人工智能", "新能源"]
     },
     {
-        "id": "chemistry",
-        "name": "化学探秘",
-        "icon": "🧪",
-        "keywords": ["化学", "元素", "分子", "原子", "反应", "实验", "元素周期表", "材料", "纳米", "催化剂", "合成", "物质", "酸", "碱", "溶液", "晶体"]
-    },
-    {
-        "id": "tech",
-        "name": "前沿科技",
-        "icon": "🤖",
-        "keywords": ["人工智能", "AI", "机器人", "芯片", "5G", "6G", "元宇宙", "VR", "AR", "技术", "发明", "创新", "计算机", "编程", "算法", "3D打印"]
-    },
-    {
-        "id": "life",
-        "name": "生命科学",
-        "icon": "🧬",
-        "keywords": ["基因", "DNA", "细胞", "生物", "医学", "健康", "病毒", "细菌", "进化", "物种", "人体", "大脑", "恐龙", "动物", "植物", "昆虫", "海洋生物"]
-    },
-    {
-        "id": "earth",
-        "name": "地球家园",
+        "id": "world",
+        "name": "多元世界",
         "icon": "🌍",
-        "keywords": ["环境", "气候", "全球变暖", "环保", "海洋", "地震", "火山", "天气", "极端天气", "生态", "可持续", "地质", "化石", "矿产", "能源"]
+        "keywords": ["世界", "国际", "全球", "外国", "海外", "美国", "欧洲", "日本", "科技", "航天", "文化", "新闻", "事件", "发现", "探索"]
+    },
+    {
+        "id": "science",
+        "name": "科学创新",
+        "icon": "🔬",
+        "keywords": ["科学", "创新", "研究", "发现", "实验", "技术", "发明", "前沿", "突破", "探索", "物理", "化学", "生物", "天文", "数学", "工程"]
+    },
+    {
+        "id": "culture",
+        "name": "文化之旅",
+        "icon": "🎨",
+        "keywords": ["文化", "历史", "艺术", "传统", "节日", "非遗", "文物", "古迹", "考古", "绘画", "音乐", "文学", "建筑", "风俗"]
+    },
+    {
+        "id": "nature",
+        "name": "趣味自然",
+        "icon": "🌿",
+        "keywords": ["自然", "动物", "植物", "海洋", "森林", "昆虫", "鸟类", "恐龙", "生态", "环境", "天气", "气候", "奇观", "神奇", "有趣", "冷知识"]
     },
     {
         "id": "fun",
-        "name": "奇趣发现",
-        "icon": "✨",
-        "keywords": ["有趣", "神奇", "奇怪", "冷知识", "未解之谜", "新奇", "惊人", "不可思议", "最", "世界", "你知道吗", "秘密"]
+        "name": "漫画乐园",
+        "icon": "🎭",
+        "keywords": ["漫画", "动画", "搞笑", "有趣", "故事", "幽默", "开心", "欢乐", "卡通", "图画", "趣味", "轻松"]
     }
 ]
 
@@ -106,17 +106,89 @@ NEWS_SOURCES = [
         "encoding": "utf-8",
         "priority": 1
     },
-    # 腾讯科普等大平台
+    # 中国数字科技馆
     {
-        "name": "科学普及出版社",
-        "url": "https://www.kepuchina.cn/zongheng/",
+        "name": "中国数字科技馆",
+        "url": "https://www.cdstm.cn/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 果壳网（高质量科普，适合青少年）
+    {
+        "name": "果壳网",
+        "url": "https://www.guokr.com/scientific/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 3
+    },
+    {
+        "name": "果壳-物种日历",
+        "url": "https://www.guokr.com/calendar/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 中科院科普
+    {
+        "name": "中科院科普",
+        "url": "https://www.cas.cn/kx/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 中国航天科普网
+    {
+        "name": "中国航天科普网",
+        "url": "https://www.spacechina.com/n25/n148/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 中国国家地理（博物杂志）
+    {
+        "name": "中国国家地理",
+        "url": "https://www.dili360.com/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 国家自然博物馆
+    {
+        "name": "国家自然博物馆",
+        "url": "https://www.nnhm.org.cn/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 中国科技馆
+    {
+        "name": "中国科技馆",
+        "url": "https://www.cstm.org.cn/",
         "type": "general",
         "encoding": "utf-8",
         "priority": 1
     },
+    # 人民网科普
     {
-        "name": "中国数字科技馆",
-        "url": "https://www.cdstm.cn/",
+        "name": "人民网科普",
+        "url": "http://scitech.people.com.cn/GB/1057/index.html",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 光明网科普
+    {
+        "name": "光明网科普",
+        "url": "https://tech.gmw.cn/",
+        "type": "general",
+        "encoding": "utf-8",
+        "priority": 2
+    },
+    # 中国天气网科普
+    {
+        "name": "中国天气网科普",
+        "url": "http://www.weather.com.cn/",
         "type": "general",
         "encoding": "utf-8",
         "priority": 1
