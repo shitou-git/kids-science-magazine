@@ -107,6 +107,7 @@ def search_images(keyword, max_results=5):
 def generate_ai_image(prompt, size="1K", ratio="4:3"):
     """使用 Agnes Image 2.1 Flash 生成图片"""
     if not config.AI_API_KEY:
+        print("  ✗ 未配置AI API密钥")
         return None
     try:
         base_url = getattr(config, 'AI_IMAGE_BASE_URL', config.AI_API_BASE_URL)
@@ -127,41 +128,46 @@ def generate_ai_image(prompt, size="1K", ratio="4:3"):
         }
         
         print(f"  📡 调用图片API: {url}")
-        response = requests.post(url, headers=headers, json=data, timeout=60)
+        print(f"  📝 提示词: {prompt[:50]}...")
+        
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=60)
+        except requests.exceptions.SSLError:
+            print(f"  ⚠️ SSL连接错误，尝试禁用SSL验证")
+            response = requests.post(url, headers=headers, json=data, timeout=60, verify=False)
+        
         print(f"  📤 响应状态: {response.status_code}")
         
         if response.status_code == 200:
-            result = response.json()
+            try:
+                result = response.json()
+            except ValueError:
+                print(f"  ✗ 响应不是有效的JSON")
+                return None
+                
             if result.get("data") and isinstance(result["data"], list) and len(result["data"]) > 0:
-                b64 = result["data"][0].get("b64_json")
+                item = result["data"][0]
+                b64 = item.get("b64_json")
                 if b64:
                     print("  ✓ 获取到Base64图片")
                     return b64
-                img_url = result["data"][0].get("url")
+                img_url = item.get("url")
                 if img_url:
                     print(f"  📥 下载图片: {img_url[:30]}...")
                     resp = requests.get(img_url, timeout=30)
                     resp.raise_for_status()
                     return base64.b64encode(resp.content).decode("utf-8")
+                print(f"  ✗ 响应数据中没有图片数据: {item.keys()}")
             else:
-                print(f"  ✗ 响应数据格式异常: {result}")
+                print(f"  ✗ 响应数据格式异常: {result.keys() if isinstance(result, dict) else '非字典'}")
         else:
-            print(f"  ✗ API调用失败: {response.text[:200]}")
+            error_text = response.text[:200]
+            print(f"  ✗ API调用失败 [{response.status_code}]: {error_text}")
+            if "model_not_found" in error_text.lower():
+                print(f"  💡 模型名可能有误，请检查配置: {model}")
             
-    except requests.exceptions.SSLError as e:
-        print(f"  ⚠️ SSL连接错误，尝试禁用SSL验证: {e}")
-        try:
-            response = requests.post(url, headers=headers, json=data, timeout=60, verify=False)
-            if response.status_code == 200:
-                result = response.json()
-                if result.get("data") and isinstance(result["data"], list) and len(result["data"]) > 0:
-                    b64 = result["data"][0].get("b64_json")
-                    if b64:
-                        return b64
-        except Exception as ee:
-            print(f"  ✗ 重试失败: {ee}")
     except Exception as e:
-        print(f"  AI图片生成失败: {e}")
+        print(f"  AI图片生成失败: {type(e).__name__} - {e}")
     return None
 
 
