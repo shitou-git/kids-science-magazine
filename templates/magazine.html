@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ magazine_title }} - 第{{ issue_number }}期</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 顶部刊头 */
+        .magazine-header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border-radius: 24px 24px 0 0;
+            padding: 50px 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magazine-header::before {
+            content: '✨';
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 40px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .magazine-header::after {
+            content: '🌟';
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            font-size: 35px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .magazine-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .magazine-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 12px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .issue-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .issue-badge {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 50px;
+            color: #ff6b9d;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255,107,157,0.2);
+        }
+
+        /* 卷首语 */
+        .editor-note {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 30px 35px;
+            position: relative;
+        }
+
+        .editor-note-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .editor-note-text {
+            font-size: 15px;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        .editor-note-sign {
+            text-align: right;
+            margin-top: 12px;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* 主体 */
+        .magazine-body {
+            background: #fff;
+            padding: 40px;
+        }
+
+        /* 目录 */
+        .toc-section {
+            margin-bottom: 40px;
+        }
+
+        .toc-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .toc-item:hover {
+            background: #eef2ff;
+            border-left-color: #667eea;
+            transform: translateX(4px);
+        }
+
+        .toc-icon {
+            font-size: 24px;
+        }
+
+        .toc-text {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* 头版头条 */
+        .headline-section {
+            margin-bottom: 50px;
+        }
+
+        .headline-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+        }
+
+        .headline-image {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .headline-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 35px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            color: #fff;
+        }
+
+        .headline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b9d 0%, #feca57 100%);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .headline-title {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .headline-highlight {
+            font-size: 15px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .headline-body {
+            margin-top: 25px;
+            padding: 0 10px;
+        }
+
+        /* 文章卡片 */
+        .article-section {
+            margin-bottom: 45px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 14px;
+            border-bottom: 3px solid #f0f0f0;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .section-icon {
+            font-size: 32px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .article-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .article-image-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .article-image-wrapper:hover .article-image {
+            transform: scale(1.05);
+        }
+
+        .article-text {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .article-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+            line-height: 1.5;
+        }
+
+        .article-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .article-body {
+            font-size: 15px;
+            color: #555;
+            line-height: 2;
+        }
+
+        .article-body p {
+            margin-bottom: 14px;
+            text-indent: 2em;
+        }
+
+        /* 阳光少年报特色：人格点亮 + 金句 */
+        .personality-box {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border-left: 5px solid #00bcd4;
+            margin-top: 8px;
+        }
+
+        .personality-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #00838f;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .personality-content {
+            font-size: 15px;
+            color: #006064;
+            font-weight: 600;
+        }
+
+        .golden-quote {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border-left: 5px solid #ff9800;
+            margin-top: 6px;
+            position: relative;
+        }
+
+        .golden-quote::before {
+            content: '"';
+            position: absolute;
+            top: -5px;
+            left: 10px;
+            font-size: 40px;
+            color: #ff9800;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .golden-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .golden-content {
+            font-size: 15px;
+            color: #e65100;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .article-source {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 趣味知识卡片 - 小知识点 */
+        .fun-fact {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-top: 6px;
+        }
+
+        .fun-fact-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #7b1fa2;
+            margin-bottom: 4px;
+        }
+
+        .fun-fact-content {
+            font-size: 14px;
+            color: #4a148c;
+        }
+
+        /* 底部 */
+        .magazine-footer {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            border-radius: 0 0 24px 24px;
+            padding: 35px 40px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .footer-slogan {
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0.7;
+        }
+
+        .empty-article {
+            text-align: center;
+            padding: 50px 20px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            color: #999;
+        }
+
+        .empty-article-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .magazine-header { padding: 35px 20px 25px; }
+            .magazine-title { font-size: 32px; letter-spacing: 3px; }
+            .magazine-subtitle { font-size: 13px; letter-spacing: 6px; }
+            .magazine-body { padding: 20px; }
+            .headline-image { height: 220px; }
+            .headline-content { padding: 20px; }
+            .headline-title { font-size: 20px; }
+            .article-card { grid-template-columns: 1fr; }
+            .article-image { height: 200px; }
+            .section-title { font-size: 20px; }
+            .article-title { font-size: 18px; }
+            .toc-grid { grid-template-columns: repeat(2, 1fr); }
+            .editor-note { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="magazine-header">
+            <h1 class="magazine-title">{{ magazine_title }}</h1>
+            <p class="magazine-subtitle">少 年 科 普 周 刊</p>
+            <div class="issue-info">
+                <span class="issue-badge">📅 第 {{ issue_number }} 期</span>
+                <span class="issue-badge">{{ publish_date }}</span>
+                <span class="issue-badge">📖 每周五发布</span>
+            </div>
+        </header>
+
+        <div class="editor-note">
+            <div class="editor-note-title">💌 主编的话</div>
+            <p class="editor-note-text">
+                嗨，小科学家们！又到了我们每周见面的时间啦～
+                这周世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启本周的奇妙科学之旅吧！
+                记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+            </p>
+            <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
+        </div>
+
+        <main class="magazine-body">
+            <section class="toc-section">
+                <h2 class="toc-title">📋 本期目录</h2>
+                <nav class="toc-grid">
+                    {% for cat in categories %}
+                    {% if cat.article or cat.id == 'headline' %}
+                    <a href="#{{ cat.id }}" class="toc-item">
+                        <span class="toc-icon">{{ cat.icon }}</span>
+                        <span class="toc-text">{{ cat.name }}</span>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </nav>
+            </section>
+
+            {% if headline_article %}
+            <section class="headline-section" id="headline">
+                <div class="headline-card">
+                    {% if headline_article.image %}
+                    <img src="{{ headline_article.image }}" alt="{{ headline_article.title }}" class="headline-image">
+                    {% else %}
+                    <div style="height:380px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;">
+                        <span style="font-size:80px;">🌟</span>
+                    </div>
+                    {% endif %}
+                    <div class="headline-content">
+                        <span class="headline-label">⭐ 头版头条</span>
+                        <h2 class="headline-title">{{ headline_article.title }}</h2>
+                        {% if headline_article.highlight %}
+                        <p class="headline-highlight">💡 {{ headline_article.highlight }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="headline-body">
+                    <div class="article-body">
+                        {{ headline_article.content_html | safe }}
+                    </div>
+                    {% if headline_article.golden_sentence %}
+                    <div class="golden-quote">
+                        <div class="golden-label">✨ 金句素材</div>
+                        <div class="golden-content">{{ headline_article.golden_sentence }}</div>
+                    </div>
+                    {% endif %}
+                    {% if headline_article.personality_point %}
+                    <div class="personality-box">
+                        <div class="personality-label">🌟 人格点亮</div>
+                        <div class="personality-content">{{ headline_article.personality_point }}</div>
+                    </div>
+                    {% endif %}
+                    {% if headline_article.source %}
+                    <p class="article-source" style="margin-top:12px;">来源：{{ headline_article.source }}</p>
+                    {% endif %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% for cat in categories %}
+            {% if cat.id != 'headline' and cat.article %}
+            <section class="article-section" id="{{ cat.id }}">
+                <div class="section-header">
+                    <span class="section-icon">{{ cat.icon }}</span>
+                    <h2 class="section-title">{{ cat.name }}</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        {% if cat.article.image %}
+                        <img src="{{ cat.article.image }}" alt="{{ cat.article.title }}" class="article-image">
+                        {% else %}
+                        <div style="height:280px;background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%);display:flex;align-items:center;justify-content:center;">
+                            <span style="font-size:60px;">{{ cat.icon }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">{{ cat.article.title }}</h3>
+                        {% if cat.article.highlight %}
+                        <span class="article-highlight">💡 {{ cat.article.highlight }}</span>
+                        {% endif %}
+                        <div class="article-body">
+                            {{ cat.article.content_html | safe }}
+                        </div>
+                        {% if cat.article.golden_sentence %}
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">{{ cat.article.golden_sentence }}</div>
+                        </div>
+                        {% endif %}
+                        {% if cat.article.personality_point %}
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">{{ cat.article.personality_point }}</div>
+                        </div>
+                        {% endif %}
+                        {% if cat.article.source %}
+                        <p class="article-source">📰 {{ cat.article.source }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+            {% endfor %}
+        </main>
+
+        <footer class="magazine-footer">
+            <p class="footer-title">{{ magazine_title }}</p>
+            <p class="footer-text">每周五晚8点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 {{ issue_number }} 期 · {{ publish_date }}</p>
+            <p class="footer-slogan">
+                保持好奇，热爱探索，每个孩子都是小小科学家 🔬
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少年科普周刊 - 第1期</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 顶部刊头 */
+        .magazine-header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border-radius: 24px 24px 0 0;
+            padding: 50px 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magazine-header::before {
+            content: '✨';
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 40px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .magazine-header::after {
+            content: '🌟';
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            font-size: 35px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .magazine-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .magazine-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 12px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .issue-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .issue-badge {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 50px;
+            color: #ff6b9d;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255,107,157,0.2);
+        }
+
+        /* 卷首语 */
+        .editor-note {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 30px 35px;
+            position: relative;
+        }
+
+        .editor-note-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .editor-note-text {
+            font-size: 15px;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        .editor-note-sign {
+            text-align: right;
+            margin-top: 12px;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* 主体 */
+        .magazine-body {
+            background: #fff;
+            padding: 40px;
+        }
+
+        /* 目录 */
+        .toc-section {
+            margin-bottom: 40px;
+        }
+
+        .toc-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .toc-item:hover {
+            background: #eef2ff;
+            border-left-color: #667eea;
+            transform: translateX(4px);
+        }
+
+        .toc-icon {
+            font-size: 24px;
+        }
+
+        .toc-text {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* 头版头条 */
+        .headline-section {
+            margin-bottom: 50px;
+        }
+
+        .headline-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+        }
+
+        .headline-image {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .headline-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 35px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            color: #fff;
+        }
+
+        .headline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b9d 0%, #feca57 100%);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .headline-title {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .headline-highlight {
+            font-size: 15px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .headline-body {
+            margin-top: 25px;
+            padding: 0 10px;
+        }
+
+        /* 文章卡片 */
+        .article-section {
+            margin-bottom: 45px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 14px;
+            border-bottom: 3px solid #f0f0f0;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .section-icon {
+            font-size: 32px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .article-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .article-image-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .article-image-wrapper:hover .article-image {
+            transform: scale(1.05);
+        }
+
+        .article-text {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .article-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+            line-height: 1.5;
+        }
+
+        .article-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .article-body {
+            font-size: 15px;
+            color: #555;
+            line-height: 2;
+        }
+
+        .article-body p {
+            margin-bottom: 14px;
+            text-indent: 2em;
+        }
+
+        /* 阳光少年报特色：人格点亮 + 金句 */
+        .personality-box {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border-left: 5px solid #00bcd4;
+            margin-top: 8px;
+        }
+
+        .personality-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #00838f;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .personality-content {
+            font-size: 15px;
+            color: #006064;
+            font-weight: 600;
+        }
+
+        .golden-quote {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border-left: 5px solid #ff9800;
+            margin-top: 6px;
+            position: relative;
+        }
+
+        .golden-quote::before {
+            content: '"';
+            position: absolute;
+            top: -5px;
+            left: 10px;
+            font-size: 40px;
+            color: #ff9800;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .golden-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .golden-content {
+            font-size: 15px;
+            color: #e65100;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .article-source {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 趣味知识卡片 - 小知识点 */
+        .fun-fact {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-top: 6px;
+        }
+
+        .fun-fact-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #7b1fa2;
+            margin-bottom: 4px;
+        }
+
+        .fun-fact-content {
+            font-size: 14px;
+            color: #4a148c;
+        }
+
+        /* 底部 */
+        .magazine-footer {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            border-radius: 0 0 24px 24px;
+            padding: 35px 40px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .footer-slogan {
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0.7;
+        }
+
+        .empty-article {
+            text-align: center;
+            padding: 50px 20px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            color: #999;
+        }
+
+        .empty-article-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .magazine-header { padding: 35px 20px 25px; }
+            .magazine-title { font-size: 32px; letter-spacing: 3px; }
+            .magazine-subtitle { font-size: 13px; letter-spacing: 6px; }
+            .magazine-body { padding: 20px; }
+            .headline-image { height: 220px; }
+            .headline-content { padding: 20px; }
+            .headline-title { font-size: 20px; }
+            .article-card { grid-template-columns: 1fr; }
+            .article-image { height: 200px; }
+            .section-title { font-size: 20px; }
+            .article-title { font-size: 18px; }
+            .toc-grid { grid-template-columns: repeat(2, 1fr); }
+            .editor-note { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="magazine-header">
+            <h1 class="magazine-title">少年科普周刊</h1>
+            <p class="magazine-subtitle">少 年 科 普 周 刊</p>
+            <div class="issue-info">
+                <span class="issue-badge">📅 第 1 期</span>
+                <span class="issue-badge">2026年07月14日</span>
+                <span class="issue-badge">📖 每周五发布</span>
+            </div>
+        </header>
+
+        <div class="editor-note">
+            <div class="editor-note-title">💌 主编的话</div>
+            <p class="editor-note-text">
+                嗨，小科学家们！又到了我们每周见面的时间啦～
+                这周世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启本周的奇妙科学之旅吧！
+                记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+            </p>
+            <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
+        </div>
+
+        <main class="magazine-body">
+            <section class="toc-section">
+                <h2 class="toc-title">📋 本期目录</h2>
+                <nav class="toc-grid">
+                    
+                    
+                    <a href="#space" class="toc-item">
+                        <span class="toc-icon">🚀</span>
+                        <span class="toc-text">航天宇宙</span>
+                    </a>
+                    
+                    
+                    
+                    <a href="#physics" class="toc-item">
+                        <span class="toc-icon">⚛️</span>
+                        <span class="toc-text">物理世界</span>
+                    </a>
+                    
+                    
+                    
+                    <a href="#chemistry" class="toc-item">
+                        <span class="toc-icon">🧪</span>
+                        <span class="toc-text">化学探秘</span>
+                    </a>
+                    
+                    
+                    
+                    <a href="#tech" class="toc-item">
+                        <span class="toc-icon">🤖</span>
+                        <span class="toc-text">前沿科技</span>
+                    </a>
+                    
+                    
+                    
+                    <a href="#life" class="toc-item">
+                        <span class="toc-icon">🧬</span>
+                        <span class="toc-text">生命科学</span>
+                    </a>
+                    
+                    
+                    
+                    <a href="#earth" class="toc-item">
+                        <span class="toc-icon">🌍</span>
+                        <span class="toc-text">地球家园</span>
+                    </a>
+                    
+                    
+                    
+                    <a href="#fun" class="toc-item">
+                        <span class="toc-icon">✨</span>
+                        <span class="toc-text">奇趣发现</span>
+                    </a>
+                    
+                    
+                </nav>
+            </section>
+
+            
+            <section class="headline-section" id="headline">
+                <div class="headline-card">
+                    
+                    <img src="images/current_headline_src.jpg" alt="背在身上的太阳能充电宝？" class="headline-image">
+                    
+                    <div class="headline-content">
+                        <span class="headline-label">⭐ 头版头条</span>
+                        <h2 class="headline-title">背在身上的太阳能充电宝？</h2>
+                        
+                        <p class="headline-highlight">💡 新型电池像蛋糕分层吸光，效率超28%</p>
+                        
+                    </div>
+                </div>
+                <div class="headline-body">
+                    <div class="article-body">
+                        <p>你有没有想过，未来的书包里能装下一座微型发电厂？科学家们发明了一种神奇的电池，它薄得像纸，轻得像羽毛，还能折叠！🎒</p>
+<p>这种电池叫钙钛矿-有机叠层电池，就像一块多层蛋糕。顶层的钙钛矿爱吃“蓝紫光”，底层的有机物专挑“红红外”来吃，大家分工合作，把阳光吃得干干净净，一点不浪费！⚡</p>
+<p>为了做出最好的电池，科学家们试了几十种材料，失败了无数次。最后他们发现，加一种特殊的分子，能让电池从“怕光”变成“驭光”，效率竟然突破了28%！</p>
+<p>现在，这个纪录已经刷新啦！它不仅能在户外给手机充电，还能去太空帮卫星工作。你看，只要坚持探索，奇迹就会发生哦！✨</p>
+                    </div>
+                    
+                    <div class="golden-quote">
+                        <div class="golden-label">✨ 金句素材</div>
+                        <div class="golden-content">坚持探索，就能创造奇迹</div>
+                    </div>
+                    
+                    
+                    <div class="personality-box">
+                        <div class="personality-label">🌟 人格点亮</div>
+                        <div class="personality-content">坚持不懈</div>
+                    </div>
+                    
+                    
+                    <p class="article-source" style="margin-top:12px;">来源：科学网</p>
+                    
+                </div>
+            </section>
+            
+
+            
+            
+            <section class="article-section" id="space">
+                <div class="section-header">
+                    <span class="section-icon">🚀</span>
+                    <h2 class="section-title">航天宇宙</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_space_1.jpg" alt="去外星睡一觉？别做梦啦！" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">去外星睡一觉？别做梦啦！</h3>
+                        
+                        <span class="article-highlight">💡 人体无法像机器那样休眠或冷冻，长途旅行需保持活跃。</span>
+                        
+                        <div class="article-body">
+                            <p>你想过吗？去很远很远的星星上旅行，能不能像看电影那样，躺进休眠舱睡一觉就到了呢？🎬 很多科幻片里都这么演，但科学家们摇头说：这可不行哦！</p>
+<p>我们的身体可不是手机，不能随便按暂停键。如果长时间躺着不动，血液会像堵车一样流不动，肌肉也会变软变小，骨头还会变脆。😱 想象一下，你几个月没运动，是不是连走路都困难？在太空中，这可是会要命的！</p>
+<p>那把人冻起来呢？更可怕啦！水结冰会变成尖尖的冰晶，就像无数小针扎破你的细胞。💉 虽然有些小动物能冬眠，但人类没有这种“超能力”。强行冷冻或休眠，醒来后可能就不认识家人了。</p>
+<p>所以呀，想去宇宙探险，光靠睡觉是不行的。我们要先了解自己的身体，还要发明更厉害的技术。🚀 未来的宇航员，可能需要像动物一样，偶尔醒来看看外面的风景呢！</p>
+                        </div>
+                        
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">探索宇宙前，先读懂身体的秘密。</div>
+                        </div>
+                        
+                        
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">科学探索</div>
+                        </div>
+                        
+                        
+                        <p class="article-source">📰 科普中国</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="article-section" id="physics">
+                <div class="section-header">
+                    <span class="section-icon">⚛️</span>
+                    <h2 class="section-title">物理世界</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_physics_0.png" alt="宇宙里的隐形人，抓到了吗？" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">宇宙里的隐形人，抓到了吗？</h3>
+                        
+                        <span class="article-highlight">💡 暗物质占宇宙85%，科学家在地下深挖17年寻找它。</span>
+                        
+                        <div class="article-body">
+                            <p>你有没有想过，宇宙里大部分东西其实都是看不见的？科学家把它们叫做“暗物质”，它占了宇宙物质的85%呢！虽然它无处不在，但谁也摸不着、看不见，就像一个调皮的隐形人。🕵️</p>
+<p>为了抓住这个“隐形人”，科学家们跑到了四川锦屏山地下2400米的地方。那里超级安静，连宇宙射线都很难钻进来。大家把探测器泡在超纯水里，就像在深海里守株待兔，耐心等待暗物质 particles 偶尔撞上来。🌊</p>
+<p>经过17年的努力，这支叫PandaX的团队终于有了大发现！他们不仅刷新了世界的探测记录，还捕捉到了太阳中微子的踪迹。这证明了中国科学家在国际上可是名列前茅哦！✨</p>
+<p>原来，探索未知的世界需要这么大的勇气和智慧。下次仰望星空时，别忘了那些看不见的奥秘，也许下一个重大发现就来自你的好奇心和坚持！🚀</p>
+                        </div>
+                        
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">坚持探索未知，好奇心能照亮宇宙的黑暗角落。</div>
+                        </div>
+                        
+                        
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">坚持不懈</div>
+                        </div>
+                        
+                        
+                        <p class="article-source">📰 科普中国</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="article-section" id="chemistry">
+                <div class="section-header">
+                    <span class="section-icon">🧪</span>
+                    <h2 class="section-title">化学探秘</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_chemistry_src.jpg" alt="荔枝保鲜有什么秘密武器吗？" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">荔枝保鲜有什么秘密武器吗？</h3>
+                        
+                        <span class="article-highlight">💡 科技给荔枝穿防护服，保鲜又育种</span>
+                        
+                        <div class="article-body">
+                            <p>你有没有想过，为什么杨贵妃能吃到新鲜的荔枝，而我们也能轻松享受这份甜蜜呢？🤔 古代为了送荔枝，累坏了马儿，现在可不用这么辛苦啦！</p>
+<p>科学家像侦探一样，破解了荔枝变褐色的秘密。原来，剥开皮后，空气会让它“生病”。不过别担心，现代科技给了荔枝一件“隐形防护服”，让它保持红润甜美。🛡️</p>
+<p>你猜怎么着？通过基因育种，未来的荔枝可能更甜、更好吃！每一颗荔枝背后，都藏着无数科学家的智慧和汗水。🌱</p>
+<p>下次吃荔枝时，记得感谢这些了不起的科技哦！科学让美味跨越千年，依然新鲜如初，是不是很神奇？✨</p>
+                        </div>
+                        
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">科学让美味跨越千年，依然新鲜如初。</div>
+                        </div>
+                        
+                        
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">探索精神</div>
+                        </div>
+                        
+                        
+                        <p class="article-source">📰 科学网</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="article-section" id="tech">
+                <div class="section-header">
+                    <span class="section-icon">🤖</span>
+                    <h2 class="section-title">前沿科技</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_tech_0.jpg" alt="AI也会“走神”？这测试太神了！" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">AI也会“走神”？这测试太神了！</h3>
+                        
+                        <div class="article-body">
+                            <p>你知道吗？现在的超级AI好像也会“走神”哦！🤔 科学家做了一个有趣的测试，叫“颜色大挑战”。题目里写着“红”字，但用的却是蓝色的墨水。这时候，你要大声说出墨水的颜色，而不是读字。这对人类来说有点难，但对AI来说，简直是“噩梦”！</p>
+<p>结果让人大吃一惊！当题目很少时，AI还能答对。可是，只要题目变多，它们的准确率就直线下降。😱 有的AI甚至完全乱了套，根本记不住要忽略文字，只顾着读字了。看来，让AI一直集中注意力，比想象中难得多！</p>
+<p>为什么AI会这样呢？因为它们没有像我们一样的大脑来控制注意力。🧠 人类可以强行忍住不去读字，但AI一旦面对长串信息，就会本能地出错。这说明，虽然AI很聪明，但在持续专注这件事上，它还不如我们的小脑袋瓜厉害呢！</p>
+<p>这个小发现告诉我们，专注力可是人类的超能力！✨ 下次你觉得做作业难集中时，别灰心，这可是连最强电脑都搞不定的难题哦。我们要好好珍惜这份独特的能力，做一个专注又棒的小朋友！</p>
+                        </div>
+                        
+                        
+                        
+                        <p class="article-source">📰 科普中国</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="article-section" id="life">
+                <div class="section-header">
+                    <span class="section-icon">🧬</span>
+                    <h2 class="section-title">生命科学</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_life_1.jpg" alt="蜜蜂也爱单身？" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">蜜蜂也爱单身？</h3>
+                        
+                        <span class="article-highlight">💡 多数蜜蜂是独行侠，独自育儿还传粉。</span>
+                        
+                        <div class="article-body">
+                            <p>你以为蜜蜂都像上班族一样天天开会吗？🤔 其实，大部分蜜蜂其实是超级“独行侠”哦！它们不像家里养的那几种蜜蜂那样成群结队，而是喜欢自己一个人过日子。</p>
+<p>雌蜂妈妈是个勤劳的建筑师，独自挖出一个个小房间当“育婴房”。💪 她在里面塞满花粉，生下宝宝就封上门，从此不再相见。有些更聪明的蜜蜂，甚至会把蛋下在别人家里，让邻居帮忙带娃，简直太机智啦！</p>
+<p>虽然它们不爱合群，但却是大自然的金牌“快递员”🚚。没有它们给花朵授粉，我们就吃不到香甜的水果和蔬菜了。所以，下次看到独自飞舞的小蜜蜂，记得对这位孤独的功臣说声谢谢哦！</p>
+                        </div>
+                        
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">每个独特的生命都在发光。</div>
+                        </div>
+                        
+                        
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">独立自主</div>
+                        </div>
+                        
+                        
+                        <p class="article-source">📰 科普中国</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="article-section" id="earth">
+                <div class="section-header">
+                    <span class="section-icon">🌍</span>
+                    <h2 class="section-title">地球家园</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_earth_src.jpg" alt="南极小精灵的过冬粮够吗？" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">南极小精灵的过冬粮够吗？</h3>
+                        
+                        <span class="article-highlight">💡 适度变暖帮磷虾存粮，过热则危及生存</span>
+                        
+                        <div class="article-body">
+                            <p>你知道吗？在南极冰山下，住着一群浑身通红的小精灵——南极磷虾。🦐它们虽然个头小小，却是企鹅和海豹的大餐，也是海洋食物链的关键一环。</p>
+<p>最近科学家发现，气候变暖让这些小家伙面临新挑战。有趣的是，稍微暖和一点能让它们吃得更多、长得更壮。但要是太热了，它们就会累得没力气储存能量，甚至面临生存危机。</p>
+<p>科学家们通过模型预测，未来磷虾的“存钱罐”可能会因为环境变化而受影响。这提醒我们，地球的温度每升高一点点，都可能改变小动物的命运。我们要保护好这个蓝色的家园哦！</p>
+                        </div>
+                        
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">守护地球，就是守护每一个微小生命</div>
+                        </div>
+                        
+                        
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">环保意识</div>
+                        </div>
+                        
+                        
+                        <p class="article-source">📰 科学网</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="article-section" id="fun">
+                <div class="section-header">
+                    <span class="section-icon">✨</span>
+                    <h2 class="section-title">奇趣发现</h2>
+                </div>
+                <div class="article-card">
+                    <div class="article-image-wrapper">
+                        
+                        <img src="images/current_fun_0.jpg" alt="为什么只会说“好烦”？" class="article-image">
+                        
+                    </div>
+                    <div class="article-text">
+                        <h3 class="article-title">为什么只会说“好烦”？</h3>
+                        
+                        <span class="article-highlight">💡 精准命名情绪，能让大脑冷静下来。</span>
+                        
+                        <div class="article-body">
+                            <p>你有没有过这种感觉？心里像塞了一团乱麻，明明很难受，却只会喊一句“好烦啊”！😫 别担心，这不是你矫情，而是你的“情绪雷达”还没升级哦。</p>
+<p>其实，我们可以给情绪拍“高清照”。试着把“烦”拆开来：是委屈？是累？还是失望？🎨 当你精准说出“我不是生气，是觉得被忽略”时，大脑里那个爱报警的“杏仁核”就会安静下来，让你重新冷静思考。</p>
+<p>怎么练习呢？做个“身体侦探”吧！胸口闷堵可能是委屈，肩膀僵硬或许是压力。🕵️‍♂️ 还可以给情绪起外号，比如把焦虑画成灰色的毛线团。给它们命名，就像给怪兽贴上标签，你就不再害怕啦。</p>
+<p>升级情绪分辨率，就像给心灵装上望远镜。🔭 当你看清每一个小小的感受，你会发现，读懂自己是一件超级酷、超级有力量的大事！加油，未来的情绪大师！💪</p>
+                        </div>
+                        
+                        <div class="golden-quote">
+                            <div class="golden-label">✨ 金句素材</div>
+                            <div class="golden-content">看清情绪，就是成长的超能力。</div>
+                        </div>
+                        
+                        
+                        <div class="personality-box">
+                            <div class="personality-label">🌟 人格点亮</div>
+                            <div class="personality-content">自我觉察</div>
+                        </div>
+                        
+                        
+                        <p class="article-source">📰 科普中国</p>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+        </main>
+
+        <footer class="magazine-footer">
+            <p class="footer-title">少年科普周刊</p>
+            <p class="footer-text">每周五晚8点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 1 期 · 2026年07月14日</p>
+            <p class="footer-slogan">
+                保持好奇，热爱探索，每个孩子都是小小科学家 🔬
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
