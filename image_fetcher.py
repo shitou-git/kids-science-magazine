@@ -201,8 +201,9 @@ def build_image_prompt(article, category_id):
     return prompt
 
 
-def get_article_image(article, category_id, issue_id):
+def get_article_images(article, category_id, issue_id, max_images=3):
     keyword = article.get("kid_title", article.get("title", ""))
+    images = []
 
     print(f"  🎨 尝试AI生成配图...")
     prompt = build_image_prompt(article, category_id)
@@ -213,30 +214,39 @@ def get_article_image(article, category_id, issue_id):
         saved = save_base64_image(ai_b64, save_path)
         if saved:
             print(f"  ✓ AI生成配图成功")
-            return os.path.relpath(saved, config.OUTPUT_DIR)
+            images.append(os.path.relpath(saved, config.OUTPUT_DIR))
 
     if article.get("images") and len(article["images"]) > 0:
-        for img_info in article["images"][:3]:
+        for idx, img_info in enumerate(article["images"][:5]):
+            if len(images) >= max_images:
+                break
             img_url = img_info["url"]
             if is_valid_image_url(img_url):
-                save_name = f"{issue_id}_{category_id}_src"
+                save_name = f"{issue_id}_{category_id}_src_{idx}"
                 save_path = os.path.join(config.IMAGES_DIR, save_name)
                 downloaded = download_image(img_url, save_path)
                 if downloaded:
-                    print(f"  ✓ 使用原文配图")
-                    return os.path.relpath(downloaded, config.OUTPUT_DIR)
+                    print(f"  ✓ 使用原文配图 {idx+1}")
+                    images.append(os.path.relpath(downloaded, config.OUTPUT_DIR))
 
-    print(f"  搜索配图: {keyword[:20]}...")
-    search_keyword = f"{keyword} 科普 插画"
-    img_urls = search_images(search_keyword, max_results=5)
+    if len(images) < max_images:
+        print(f"  搜索配图: {keyword[:20]}...")
+        search_keyword = f"{keyword} 科普 插画"
+        img_urls = search_images(search_keyword, max_results=10)
 
-    for i, img_url in enumerate(img_urls):
-        save_name = f"{issue_id}_{category_id}_{i}"
-        save_path = os.path.join(config.IMAGES_DIR, save_name)
-        downloaded = download_image(img_url, save_path)
-        if downloaded:
-            print(f"  ✓ 找到配图")
-            return os.path.relpath(downloaded, config.OUTPUT_DIR)
+        for i, img_url in enumerate(img_urls):
+            if len(images) >= max_images:
+                break
+            save_name = f"{issue_id}_{category_id}_search_{i}"
+            save_path = os.path.join(config.IMAGES_DIR, save_name)
+            downloaded = download_image(img_url, save_path)
+            if downloaded:
+                print(f"  ✓ 搜索到配图 {i+1}")
+                images.append(os.path.relpath(downloaded, config.OUTPUT_DIR))
 
-    print(f"  ✗ 未找到合适配图")
-    return None
+    if images:
+        print(f"  ✅ 共找到 {len(images)} 张配图")
+    else:
+        print(f"  ✗ 未找到合适配图")
+
+    return images

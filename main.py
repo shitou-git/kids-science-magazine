@@ -81,9 +81,12 @@ def process_articles(raw_articles):
         cat_id = classify_article(article, config.CATEGORIES)
         if not cat_id:
             cat_id = fallback_classify(article, config.CATEGORIES)
-        if cat_id and cat_id in categories:
+        if cat_id and cat_id in categories and cat_id != "headline":
             categories[cat_id]["articles"].append(article)
             print(f"  → 归类到: {categories[cat_id]['name']}")
+        elif cat_id == "headline":
+            categories["headline"]["articles"].append(article)
+            print(f"  → 归类到: 头条候选")
         else:
             print(f"  → 无法分类，跳过")
 
@@ -91,7 +94,6 @@ def process_articles(raw_articles):
 
     # 第一步：先选头版头条
     headline_article = None
-    headline_cat_id = None
     all_articles = []
     for c in categories.values():
         all_articles.extend(c["articles"])
@@ -103,36 +105,55 @@ def process_articles(raw_articles):
     if selected:
         print(f"  头条: {selected['title'][:40]}...")
         headline_article = selected
-        # 找出头条属于哪个栏目
-        for cat_id, cat_data in categories.items():
-            if selected in cat_data["articles"]:
-                headline_cat_id = cat_id
+
+    # 添加头条栏目
+    headline_cat = {
+        "id": "headline",
+        "name": "今日头条",
+        "icon": "🌟",
+        "article": process_single_article(headline_article, "headline", 0) if headline_article else None
+    }
+    result_categories.append(headline_cat)
+
+    selected_hashes = set()
+    if headline_article:
+        selected_hashes.add(headline_article["hash"])
+
+    # 筛选有文章的栏目，排除头条
+    available_cats = []
+    for cat_id, cat_data in categories.items():
+        if cat_id != "headline":
+            articles = [a for a in cat_data["articles"] if a["hash"] not in selected_hashes]
+            if articles:
+                available_cats.append({
+                    "id": cat_id,
+                    "name": cat_data["name"],
+                    "icon": cat_data["icon"],
+                    "articles": articles
+                })
+
+    # 按文章数量排序，选前几个栏目
+    available_cats.sort(key=lambda x: len(x["articles"]), reverse=True)
+    selected_cats = available_cats[:config.DAILY_TOPICS_COUNT - 1]
+
+    print(f"\n📋 今日选择 {len(selected_cats) + 1} 个主题（头条 + {len(selected_cats)}个栏目）")
+
+    for cat_info in selected_cats:
+        print(f"\n📝 {cat_info['name']}: 改写 {len(cat_info['articles'])} 篇，选最优...")
+
+        best_article = None
+        for idx, art in enumerate(cat_info["articles"][:config.ARTICLES_PER_CATEGORY + 2]):
+            processed = process_single_article(art, cat_info["id"], idx)
+            if processed:
+                best_article = processed
                 break
 
-    # 第二步：为每个栏目选文章，跳过头条文章
-    for cat in config.CATEGORIES:
-        cat_data = categories[cat["id"]]
-        selected_article = None
-
-        if cat["id"] == "headline":
-            if headline_article:
-                selected_article = process_single_article(headline_article, cat["id"], 0)
-        else:
-            articles = cat_data["articles"]
-            # 过滤掉头条文章，避免重复
-            if headline_article:
-                articles = [a for a in articles if a["hash"] != headline_article["hash"]]
-            if articles:
-                print(f"\n📝 {cat['name']}: 改写 {len(articles)} 篇，选最优...")
-                best_article = None
-                for idx, art in enumerate(articles[:config.ARTICLES_PER_CATEGORY + 2]):
-                    processed = process_single_article(art, cat["id"], idx)
-                    if processed:
-                        best_article = processed
-                        break
-                selected_article = best_article
-
-        cat_data["article"] = selected_article
+        cat_data = {
+            "id": cat_info["id"],
+            "name": cat_info["name"],
+            "icon": cat_info["icon"],
+            "article": best_article
+        }
         result_categories.append(cat_data)
 
     return result_categories
@@ -145,14 +166,14 @@ def fallback_process(article):
         selected = []
         current_len = 0
         for p in paragraphs:
-            if current_len < 400:
+            if current_len < config.MIN_CONTENT_LENGTH:
                 selected.append(p)
                 current_len += len(p)
             else:
                 break
         kid_content = "\n".join(selected)
     else:
-        kid_content = content[:400]
+        kid_content = content[:config.MIN_CONTENT_LENGTH]
 
     highlight = paragraphs[0][:30] + "..." if paragraphs else ""
 
@@ -205,8 +226,8 @@ def process_single_article(article, category_id, index):
     article["content_html"] = text_to_html_paragraphs(rewritten["content"])
 
     print(f"  🖼️  获取配图...")
-    image = get_article_image(article, category_id, issue_id)
-    article["image"] = image
+    images = get_article_images(article, category_id, issue_id, max_images=3)
+    article["images"] = images
 
     return {
         "title": rewritten["title"],
@@ -215,7 +236,8 @@ def process_single_article(article, category_id, index):
         "highlight": rewritten.get("highlight", ""),
         "golden_sentence": rewritten.get("golden_sentence", ""),
         "personality_point": rewritten.get("personality_point", ""),
-        "image": image,
+        "image": images[0] if images else None,
+        "images": images,
         "source": article.get("source", ""),
         "url": article.get("url", ""),
     }
@@ -664,7 +686,7 @@ def create_homepage():
 
     <footer class="footer">
         <p class="footer-title">少年科普周刊</p>
-        <p class="footer-text">每周五晚8点，带你探索科学的奇妙世界</p>
+        <p class="footer-text">每天下午4点，带你探索科学的奇妙世界</p>
         <p class="footer-text">专为小学生打造的科普读物</p>
         <p class="footer-slogan">保持好奇，热爱探索，每个孩子都是小小科学家 🔬</p>
     </footer>

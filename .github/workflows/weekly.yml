@@ -2,8 +2,8 @@ name: Weekly Science Magazine
 
 on:
   schedule:
-    # 每周五 UTC 09:00 = 北京时间 17:00
-    - cron: '0 9 * * 5'
+    # 每天 UTC 08:00 = 北京时间 16:00
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 permissions:
