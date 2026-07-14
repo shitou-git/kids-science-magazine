@@ -276,6 +276,155 @@ def save_issue(html_content, issue_number):
     return html_path
 
 
+def create_homepage():
+    """创建主页 index.html，列出所有期数"""
+    issues = []
+    if os.path.exists(config.ARCHIVE_DIR):
+        for name in sorted(os.listdir(config.ARCHIVE_DIR), reverse=True):
+            if name.startswith("issue_"):
+                num = name.replace("issue_", "")
+                issues.append({
+                    "number": num,
+                    "path": f"./{name}/issue_{num}.html",
+                    "is_latest": len(issues) == 0
+                })
+
+    if not issues:
+        return
+
+    latest = issues[0]
+    issue_links = ""
+    for issue in issues:
+        badge = '<span class="badge">最新</span>' if issue["is_latest"] else ""
+        issue_links += f'                <a href="{issue["path"]}" class="issue-link">\n                    第 {issue["number"]} 期 {badge}\n                </a>\n'
+
+    homepage_html = f'''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少年科普周刊</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }}
+        .container {{
+            text-align: center;
+            padding: 40px;
+            max-width: 600px;
+        }}
+        .logo {{ font-size: 80px; margin-bottom: 20px; }}
+        h1 {{
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+            letter-spacing: 4px;
+        }}
+        .subtitle {{
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 8px;
+            margin-bottom: 40px;
+        }}
+        .card {{
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }}
+        .btn {{
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 16px rgba(102,126,234,0.4);
+        }}
+        .btn:hover {{ transform: translateY(-2px); }}
+        .issues-list {{ margin-top: 30px; text-align: left; }}
+        .issues-list h3 {{
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 12px;
+            text-align: center;
+        }}
+        .issue-link {{
+            display: block;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: all 0.3s;
+        }}
+        .issue-link:hover {{
+            background: #eef2ff;
+            transform: translateX(4px);
+        }}
+        .issue-link .badge {{
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b9d, #feca57);
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 8px;
+        }}
+        .footer {{
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔬</div>
+        <h1>少年科普周刊</h1>
+        <p class="subtitle">少 年 科 普 周 刊</p>
+
+        <div class="card">
+            <a href="{latest["path"]}" class="btn">📖 阅读最新一期</a>
+        </div>
+
+        <div class="card">
+            <div class="issues-list">
+                <h3>📋 往期回顾</h3>
+{issue_links}
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>每周五晚8点更新 · 带你探索科学的奇妙世界</p>
+            <p style="margin-top:8px;">保持好奇，热爱探索 🔬</p>
+        </div>
+    </div>
+</body>
+</html>'''
+
+    index_path = os.path.join(config.ARCHIVE_DIR, "index.html")
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(homepage_html)
+    print(f"   主页: {index_path}")
+
+
 def run_weekly_task():
     print("\n" + "="*60)
     print("🚀 少年科普周刊 - 开始生成")
@@ -304,6 +453,7 @@ def run_weekly_task():
     html_content = generate_html(categories, issue_number, publish_date)
 
     save_issue(html_content, issue_number)
+    create_homepage()
 
     print("\n" + "="*60)
     print(f"🎉 第 {issue_number} 期周刊生成完成！")
