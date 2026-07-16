@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少年科普周刊 - 第7期</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #FFF9E6 0%, #FFF5D4 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .cover-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 30px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%);
+        }
+        .cover-section::after {
+            content: '★';
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 80px;
+            opacity: 0.15;
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .cover-stars {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .cover-date {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .cover-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+        }
+        .cover-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 8px;
+            font-weight: 500;
+        }
+        .cover-badge {
+            margin-top: 20px;
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .badge-item {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FF6B35;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .editor-note {
+            background: #fff;
+            padding: 24px 30px;
+            border-left: 6px solid #FF6B35;
+            margin: 0;
+        }
+        .editor-note-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FF6B35;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .editor-note-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.9;
+        }
+        .editor-note-sign {
+            text-align: right;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .headline-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .headline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+        }
+        .headline-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .headline-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .headline-title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1a1a2e;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .headline-highlight {
+            font-size: 16px;
+            color: #FF6B35;
+            font-weight: 600;
+            padding: 12px 16px;
+            background: #FFF8F0;
+            border-radius: 12px;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .headline-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .headline-body p {
+            margin-bottom: 12px;
+            text-indent: 2em;
+        }
+
+        .topic-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #FFE4C4;
+            position: relative;
+        }
+        .topic-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
+        }
+        .topic-icon {
+            font-size: 36px;
+        }
+        .topic-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+        .topic-subtitle {
+            font-size: 13px;
+            color: #999;
+            margin-left: auto;
+        }
+
+        .article-main-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .article-main-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .article-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF6B35;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .article-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .article-body p {
+            margin-bottom: 14px;
+            text-indent: 2em;
+        }
+
+        .article-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .knowledge-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #1976D2;
+            margin: 16px 0;
+            position: relative;
+        }
+        .knowledge-box::before {
+            content: '💡';
+            position: absolute;
+            top: -8px;
+            left: 16px;
+            font-size: 28px;
+        }
+        .knowledge-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0D47A1;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            padding-left: 30px;
+        }
+        .knowledge-content {
+            font-size: 15px;
+            color: #1565C0;
+            font-weight: 600;
+            padding-left: 30px;
+        }
+
+        .fun-fact-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+            padding: 18px;
+            border-radius: 16px;
+            border-left: 6px solid #C2185B;
+            margin: 16px 0;
+        }
+        .fun-fact-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #880E4F;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .fun-fact-content {
+            font-size: 15px;
+            color: #4A148C;
+            font-weight: 600;
+        }
+
+        .golden-quote {
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #FF9800;
+            margin-top: 16px;
+            position: relative;
+        }
+        .golden-quote::before {
+            content: '"';
+            position: absolute;
+            top: -6px;
+            left: 10px;
+            font-size: 42px;
+            color: #FF9800;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        .golden-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #E65100;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .golden-content {
+            font-size: 15px;
+            color: #E65100;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .personality-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #388E3C;
+            margin-top: 12px;
+        }
+        .personality-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1B5E20;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .personality-content {
+            font-size: 15px;
+            color: #2E7D32;
+            font-weight: 700;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #DDD;
+        }
+        .article-source {
+            font-size: 13px;
+            color: #999;
+        }
+        .article-link {
+            font-size: 13px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        .magazine-footer {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            padding: 35px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+        .footer-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .footer-text {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        .footer-slogan {
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0.7;
+            color: #FFE4C4;
+            font-weight: 500;
+        }
+
+        .empty-article {
+            text-align: center;
+            padding: 40px 20px;
+            background: #FFF8F0;
+            border-radius: 20px;
+            color: #999;
+        }
+        .empty-article-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0; }
+            .cover-section { padding: 30px 20px 40px; }
+            .cover-title { font-size: 36px; letter-spacing: 4px; }
+            .cover-subtitle { font-size: 13px; letter-spacing: 4px; }
+            .headline-section, .topic-section { padding: 20px; }
+            .headline-title { font-size: 24px; }
+            .headline-image { height: 220px; }
+            .article-title { font-size: 20px; }
+            .article-main-image img { height: 180px; }
+            .article-gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item img { height: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="cover-section">
+            <span class="cover-stars">✨⭐✨</span>
+            <div class="cover-date">📅 2026年07月16日</div>
+            <h1 class="cover-title">少年科普周刊</h1>
+            <p class="cover-subtitle">少 年 科 普 日 报</p>
+            <div class="cover-badge">
+                <span class="badge-item">🌟 每日更新</span>
+                <span class="badge-item">📚 第 7 期</span>
+                <span class="badge-item">🎯 专为小学生打造</span>
+            </div>
+        </header>
+
+        <div class="editor-note">
+            <div class="editor-note-title">💌 小编说</div>
+            <p class="editor-note-text">
+                嗨，小科学家们！又到了我们每天见面的时间啦～今天世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启今天的奇妙科学之旅吧！记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+            </p>
+            <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
+        </div>
+
+        
+        <section class="headline-section">
+            <span class="headline-label">🌟 今日头条</span>
+            
+            <h2 class="headline-title">困扰学界几十年，“违背地质常识”的黄石超级火山原来是这么形成的</h2>
+            
+            <p class="headline-highlight">💡 困扰学界几十年，“违背地质常识”的黄石超级火山原来是这么形成...</p>
+            
+            <div class="headline-body">
+                <p>困扰学界几十年，“违背地质常识”的黄石超级火山原来是这么形成的- · 科普中国网</p>
+<p>困扰学界几十年，“违背地质常识”的黄石超级火山原来是这么形成的</p>
+<p>上传时间：2026-07-16 08:50</p>
+<p>科普中国子品牌，倡导“溯源守拙，问学求新”。</p>
+<p>黄石火山为何“长错地方”？从倾斜岩浆通道到地幔暗流，这座最诡异的超级火山，正挑战我们对地球内部运作的认知。</p>
+<p>大自然的破坏力足以颠覆你我的固有认知。人类在大自然力量面前变得极其渺小。</p>
+<p>北京市西城区白纸坊东街2号经济日报社综合业务楼A座</p>
+            </div>
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">知识就是力量</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">探索精神</div>
+            </div>
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=2&ar_id=719430" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🇨🇳</span>
+                <h2 class="topic-title">中国故事</h2>
+                <span class="topic-subtitle">🇨🇳</span>
+            </div>
+            
+            
+            <div class="article-main-image">
+                <img src="images/current_china_src_0.jpg" alt="鼎湖山保护区70华诞：科技引领人与自然和谐共生—新闻—科学网">
+            </div>
+            
+            
+            <h3 class="article-title">鼎湖山保护区70华诞：科技引领人与自然和谐共生—新闻—科学网</h3>
+            
+            <span class="article-highlight">💡 作者：朱汉斌 来源：中国科学报 发布时间：2026/7/2 ...</span>
+            
+            
+            <div class="article-body">
+                <p>作者：朱汉斌 来源：中国科学报 发布时间：2026/7/2 12:40:17</p>
+<p>鼎湖山保护区70华诞：科技引领人与自然和谐共生</p>
+<p>6月30日，中国第一个自然保护区——鼎湖山国家级自然保护区（以下简称鼎湖山保护区）迎来70岁生日。这座被誉为“北回归沙漠带上的绿色明珠”的保护区，也是唯一隶属中国科学院的自然保护区，由中国科学院华南植物园负责管理。</p>
+<p>6月30日至7月2日，第二十七届中国生物圈保护区网络成员大会暨鼎湖山国家级自然保护区建立70周年大会在广东肇庆召开。大会以“科技引领人与自然和谐共生”为主题，中国生物圈保护区网络成员代表、新成员代表、生态领域院士专家及国际组织代表等近400人齐聚一堂，总结鼎湖山保护区70年丰硕成果，共探人与自然和谐共生新路径。</p>
+<p>“鼎湖山保护区作为新中国首个自然保护区，是我国首批加入世界生物圈保护区网络的成员之一。七十年来，这里积累了珍贵的长时序生态数据，创新形成‘科研监测+科普宣教+社区共管’的鼎湖山模式，充分彰显了科学化保护和发展的卓越成效。”中国人与生物圈国家委员会主席、中国科学院院士张亚平在致辞中表示，中国生物圈保护区网络将发挥好以鼎湖山为代表的保护区范例作用，全面落实生物圈保护的全球部署，以高水平科研、高质量科普赋能人与自然和谐共生的现代化，为建设美丽中国、构建地球生命共同体贡献更多力量。</p>
+<p>1956年6月30日，第一届全国人大第三次会议上，陈焕镛院士会同秉志、钱崇澍、杨惟义、秦仁昌五位科学家提交第92号提案，呼吁划定天然林禁伐区。提案获通过，中国首个自然保护区由此诞生，开启了我国自然保护事业的法制化进程。其成立事件先后载入《中华人民共和国大事记》和《中国共产党一百年大事记》。</p>
+<p>70年来，鼎湖山保护区保存了我国保护历史最悠久的南亚热带常绿阔叶林。这里森林覆盖率达98%，面积仅1155公顷，却拥有野生高等植物1950种，71个物种以“鼎湖”或“鼎湖山”命名。1979年，鼎湖山保护区成为我国首批联合国教科文组织“人与生物圈计划”世界生物圈保护区之一。</p>
+            </div>
+
+            
+            <div class="article-gallery">
+                
+                <div class="gallery-item">
+                    <img src="images/current_china_src_1.jpg" alt="配图">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/current_china_src_2.jpg" alt="配图">
+                </div>
+                
+            </div>
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    中国成就：作者：朱汉斌 来源：中国科学报 发布时间：2026/7/2 ...
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    关于这个话题，你还有什么想问的吗？
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">坚持探索，终有收获</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">科学思维</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="https://news.sciencenet.cn/htmlnews/2026/7/567532.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🔬</span>
+                <h2 class="topic-title">科学创新</h2>
+                <span class="topic-subtitle">🔬</span>
+            </div>
+            
+            
+            <div class="article-main-image">
+                <img src="images/current_science_search_0.png" alt="银河系深处，真的有糖！">
+            </div>
+            
+            
+            <h3 class="article-title">银河系深处，真的有糖！</h3>
+            
+            <span class="article-highlight">💡 中心的尘埃气体云中，西班牙天文学家探测到高速旋转运动的一种糖...</span>
+            
+            
+            <div class="article-body">
+                <p>中心的尘埃气体云中，西班牙天文学家探测到高速旋转运动的一种糖分子。这一“甜蜜”发现不仅将为解开地球上糖的起源之谜提供线索，还有助于科学家探索生命如何形成。</p>
+<p>据13日刊载于英国《自然-天文学》杂志的论文，研究人员在银河系</p>
+<p>分子。这是一种分子结构包含4个碳原子、8个氢原子和4个氧原子的糖，在地球上存在于树莓果实中。</p>
+<p>这是银河系星际之间首次发现“真正的糖”。2000年，天文学家曾在星际介质中探测到最简单的糖分子</p>
+<p>。不过，这种物质只包含两个碳原子，不能算作糖。美国麻省理工学院天体化学家布雷特·麦圭尔说，真正的糖至少要有3个碳原子。</p>
+<p>糖是构成生命的基本物质之一。科学家推断，糖在地球上早就存在。然而，尽管复制了必要的化学环境，众多尝试生成糖分子的试验仍以失败告终。</p>
+<p>与此同时，有线索显示，地球之外可能有糖存在。在数十亿年前形成的一些陨石的样本中，曾有研究发现含5个碳原子的</p>
+<p>。去年12月，日本研究人员宣布，在小行星贝努提取的样本中鉴定出多种生命必需的糖类，包括核糖和</p>
+<p>科学家因此将寻找糖的目光投向宇宙。西班牙天体生物学中心的研究人员用两台</p>
+<p>深入观测银河系中心，收集那里的星际介质发出的射频数据。当太空中的分子旋转和移动时，它们会产生不同的频率。研究人员将收集到的这些频率模式与实验室中不同分子产生的频率模式进行比对，就能识别出星际介质中究竟存在哪些分子。在反复比对核实后，他们在银河系中心的星云中发现了赤藓酮糖分子。</p>
+<p>研究人员估算，在地球形成早期关键阶段，有50万到5000万吨赤藓酮糖被带到地球。赤藓酮糖虽然不能直接形成</p>
+<p>，但经反应可以转化为另一种糖，继而形成这两种核酸。</p>
+<p>这一新发现表明，糖类甚至可能早在恒星和行星形成之前就存在。研究报告作者伊萨丝孔·希门尼斯-塞拉说，既然星际介质中能够生成构成生命的基本物质之一，那么，地球以外有生命存在的可能性也就随之增大。</p>
+<p>研究人员计划继续在宇宙中寻找分子结构更为复杂的糖，例如能够形成RNA和DNA的核糖和脱氧核糖。</p>
+            </div>
+
+            
+            <div class="article-gallery">
+                
+                <div class="gallery-item">
+                    <img src="images/current_science_search_1.png" alt="配图">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/current_science_search_2.png" alt="配图">
+                </div>
+                
+            </div>
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    科学原理：中心的尘埃气体云中，西班牙天文学家探测到高速旋转运动的一种糖...
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    你知道吗？科学家们还在研究更多有趣的发现呢！
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">用心观察，处处是科学</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">科学思维</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=720225" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+
+        <footer class="magazine-footer">
+            <p class="footer-title">少年科普周刊</p>
+            <p class="footer-text">每天下午4点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 7 期 · 2026年07月16日</p>
+            <p class="footer-slogan">
+                保持好奇，热爱探索，每个孩子都是小小科学家 🔬
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
