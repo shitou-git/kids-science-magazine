@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少年科普周刊 - 第4期</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #FFF9E6 0%, #FFF5D4 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .cover-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 30px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%);
+        }
+        .cover-section::after {
+            content: '★';
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 80px;
+            opacity: 0.15;
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .cover-stars {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .cover-date {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .cover-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+        }
+        .cover-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 8px;
+            font-weight: 500;
+        }
+        .cover-badge {
+            margin-top: 20px;
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .badge-item {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FF6B35;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .editor-note {
+            background: #fff;
+            padding: 24px 30px;
+            border-left: 6px solid #FF6B35;
+            margin: 0;
+        }
+        .editor-note-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FF6B35;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .editor-note-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.9;
+        }
+        .editor-note-sign {
+            text-align: right;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .headline-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .headline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+        }
+        .headline-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .headline-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .headline-title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1a1a2e;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .headline-highlight {
+            font-size: 16px;
+            color: #FF6B35;
+            font-weight: 600;
+            padding: 12px 16px;
+            background: #FFF8F0;
+            border-radius: 12px;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .headline-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .headline-body p {
+            margin-bottom: 12px;
+            text-indent: 2em;
+        }
+
+        .topic-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #FFE4C4;
+            position: relative;
+        }
+        .topic-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
+        }
+        .topic-icon {
+            font-size: 36px;
+        }
+        .topic-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+        .topic-subtitle {
+            font-size: 13px;
+            color: #999;
+            margin-left: auto;
+        }
+
+        .article-main-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .article-main-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .article-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF6B35;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .article-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .article-body p {
+            margin-bottom: 14px;
+            text-indent: 2em;
+        }
+
+        .article-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .knowledge-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #1976D2;
+            margin: 16px 0;
+            position: relative;
+        }
+        .knowledge-box::before {
+            content: '💡';
+            position: absolute;
+            top: -8px;
+            left: 16px;
+            font-size: 28px;
+        }
+        .knowledge-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0D47A1;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            padding-left: 30px;
+        }
+        .knowledge-content {
+            font-size: 15px;
+            color: #1565C0;
+            font-weight: 600;
+            padding-left: 30px;
+        }
+
+        .fun-fact-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+            padding: 18px;
+            border-radius: 16px;
+            border-left: 6px solid #C2185B;
+            margin: 16px 0;
+        }
+        .fun-fact-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #880E4F;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .fun-fact-content {
+            font-size: 15px;
+            color: #4A148C;
+            font-weight: 600;
+        }
+
+        .golden-quote {
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #FF9800;
+            margin-top: 16px;
+            position: relative;
+        }
+        .golden-quote::before {
+            content: '"';
+            position: absolute;
+            top: -6px;
+            left: 10px;
+            font-size: 42px;
+            color: #FF9800;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        .golden-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #E65100;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .golden-content {
+            font-size: 15px;
+            color: #E65100;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .personality-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #388E3C;
+            margin-top: 12px;
+        }
+        .personality-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1B5E20;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .personality-content {
+            font-size: 15px;
+            color: #2E7D32;
+            font-weight: 700;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #DDD;
+        }
+        .article-source {
+            font-size: 13px;
+            color: #999;
+        }
+        .article-link {
+            font-size: 13px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        .magazine-footer {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            padding: 35px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+        .footer-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .footer-text {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        .footer-slogan {
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0.7;
+            color: #FFE4C4;
+            font-weight: 500;
+        }
+
+        .empty-article {
+            text-align: center;
+            padding: 40px 20px;
+            background: #FFF8F0;
+            border-radius: 20px;
+            color: #999;
+        }
+        .empty-article-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0; }
+            .cover-section { padding: 30px 20px 40px; }
+            .cover-title { font-size: 36px; letter-spacing: 4px; }
+            .cover-subtitle { font-size: 13px; letter-spacing: 4px; }
+            .headline-section, .topic-section { padding: 20px; }
+            .headline-title { font-size: 24px; }
+            .headline-image { height: 220px; }
+            .article-title { font-size: 20px; }
+            .article-main-image img { height: 180px; }
+            .article-gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item img { height: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="cover-section">
+            <span class="cover-stars">✨⭐✨</span>
+            <div class="cover-date">📅 2026年07月14日</div>
+            <h1 class="cover-title">少年科普周刊</h1>
+            <p class="cover-subtitle">少 年 科 普 日 报</p>
+            <div class="cover-badge">
+                <span class="badge-item">🌟 每日更新</span>
+                <span class="badge-item">📚 第 4 期</span>
+                <span class="badge-item">🎯 专为小学生打造</span>
+            </div>
+        </header>
+
+        <div class="editor-note">
+            <div class="editor-note-title">💌 小编说</div>
+            <p class="editor-note-text">
+                嗨，小科学家们！又到了我们每天见面的时间啦～今天世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启今天的奇妙科学之旅吧！记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+            </p>
+            <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
+        </div>
+
+        
+        <section class="headline-section">
+            <span class="headline-label">🌟 今日头条</span>
+            
+            <div class="headline-image-wrapper">
+                <img src="images/current_headline_src_0.jpg" alt="神奇的太阳能蛋糕，能装进背包吗？" class="headline-image">
+            </div>
+            
+            <h2 class="headline-title">神奇的太阳能蛋糕，能装进背包吗？</h2>
+            
+            <p class="headline-highlight">💡 新型电池像蛋糕，轻薄高效好携带。</p>
+            
+            <div class="headline-body">
+                <p>你知道吗？科学家做出了一种像多层蛋糕一样的神奇电池！🍰 它叫钙钛矿-有机叠层太阳能电池，最近打破了世界纪录。它的效率超过了28%，能把更多的阳光变成 electricity！</p>
+<p>这层“蛋糕”设计得特别聪明。顶层像个小卫士，吸收明亮的蓝光；底层负责“捡漏”，抓住红光和红外线。它们互相配合，不仅发电多，还能保护对方不受伤害。✨ 这种电池又轻又软，甚至可以折叠放进背包。</p>
+<p>为了找到完美的配方，科学家们尝试了无数次。他们发现加入一种叫TDB的小分子后，电池变得超级稳定。即使在阳光下暴晒很久，它依然电力满满。这真是“1+1大于2”的神奇组合！</p>
+<p>想象一下，以后去野外露营，只要展开这块轻便的电池板，手机就能随时充电啦。💡 科技让生活更美好，也许未来由你来创造哦！</p>
+            </div>
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">坚持探索，科技点亮未来生活。</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">探索精神</div>
+            </div>
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="http://news.sciencenet.cn/htmlnews/2026/7/568126.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🇨🇳</span>
+                <h2 class="topic-title">中国故事</h2>
+                <span class="topic-subtitle">🇨🇳</span>
+            </div>
+            
+            
+            <div class="article-main-image">
+                <img src="images/current_china_src_0.jpg" alt="荔枝为什么会变色？">
+            </div>
+            
+            
+            <h3 class="article-title">荔枝为什么会变色？</h3>
+            
+            <span class="article-highlight">💡 荔枝变色是生理变化，科技能保鲜</span>
+            
+            
+            <div class="article-body">
+                <p>你有没有想过，为什么刚摘下的荔枝红得像宝石，放几天却变成褐色呢？🤔古人为了吃到新鲜的荔枝，甚至快马加鞭运送，但这其实是因为荔枝太“娇气”啦！</p>
+<p>原来，荔枝离开树枝后，体内的“小卫士”开始忙碌起来。它们产生的物质会让果皮发生化学变化，就像苹果切开后会氧化一样。科学家朱虹阿姨正在研究这些“隐形魔法”，试图解开荔枝变色的秘密。🔬</p>
+<p>现在，我们有了科技保鲜术，还能通过分子育种让荔枝更甜、更耐储存。这不仅让美味走得更远，还保护了我们的舌尖享受。下次吃荔枝时，记得想想背后的科学故事哦！🚀</p>
+            </div>
+
+            
+            <div class="article-gallery">
+                
+                <div class="gallery-item">
+                    <img src="images/current_china_src_1.png" alt="配图">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/current_china_src_2.png" alt="配图">
+                </div>
+                
+            </div>
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    中国成就：荔枝变色是生理变化，科技能保鲜
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    关于这个话题，你还有什么想问的吗？
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">用科学守护美味，让甜蜜传千里</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">探索精神</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="https://news.sciencenet.cn/htmlnews/2026/7/568092.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🌿</span>
+                <h2 class="topic-title">趣味自然</h2>
+                <span class="topic-subtitle">🌿</span>
+            </div>
+            
+            
+            <div class="article-main-image">
+                <img src="images/current_nature_src_0.jpg" alt="鸟儿也要打疫苗？">
+            </div>
+            
+            
+            <h3 class="article-title">鸟儿也要打疫苗？</h3>
+            
+            <span class="article-highlight">💡 疫苗帮鸟儿抵抗病毒，保护珍稀物种安全。</span>
+            
+            
+            <div class="article-body">
+                <p>你知道吗？有一种胖乎乎的鹦鹉，走起路来摇摇晃晃，叫鸮鹦鹉。它们可是新西兰的国宝，但现在却面临一个大麻烦！😱</p>
+<p>一种叫H5N1的病毒正在全球旅行，它会让生病的鸟儿难受很久。为了保护这些珍稀朋友，科学家决定给它们穿上“隐形盔甲”——接种疫苗！🛡️</p>
+<p>虽然打针有点疼，但这能帮鸟儿们抵抗病毒。科学家像超级英雄一样忙碌，小心翼翼地把疫苗打进鸟儿的身体里。</p>
+<p>你猜怎么着？大部分鸟儿打完针后，抗体撑过了半年！这意味着它们有了更强的抵抗力，能更安全地生活啦！✨</p>
+<p>这场保卫战还在继续，科学家们会分批给更多鸟儿接种。希望每一只小动物都能健健康康，快乐飞翔！🕊️</p>
+            </div>
+
+            
+            <div class="article-gallery">
+                
+                <div class="gallery-item">
+                    <img src="images/current_nature_src_1.jpg" alt="配图">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/current_nature_src_2.gif" alt="配图">
+                </div>
+                
+            </div>
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    自然奥秘：疫苗帮鸟儿抵抗病毒，保护珍稀物种安全。
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    大自然中还有很多神奇的秘密等待我们去探索！
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">用爱心和行动，守护每一个小小的生命。</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">责任感</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="https://news.sciencenet.cn/htmlnews/2026/7/568151.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+
+        <footer class="magazine-footer">
+            <p class="footer-title">少年科普周刊</p>
+            <p class="footer-text">每天下午4点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 4 期 · 2026年07月14日</p>
+            <p class="footer-slogan">
+                保持好奇，热爱探索，每个孩子都是小小科学家 🔬
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

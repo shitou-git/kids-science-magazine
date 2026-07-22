@@ -3,103 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>少年科普周刊 - 第3期</title>
+    <title>少年科普周刊 - 第12期</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            background: #FFF5E6;
+            background: linear-gradient(180deg, #FFF9E6 0%, #FFF5D4 100%);
             min-height: 100vh;
             color: #333;
             line-height: 1.8;
         }
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0;
         }
 
-        /* 封面 */
-        .cover-page {
+        .cover-section {
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            border-radius: 24px;
-            padding: 60px 40px;
+            padding: 40px 30px 50px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            margin-bottom: 0;
-            color: #fff;
         }
-        .cover-page::before {
+        .cover-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%);
         }
-        .cover-page::after {
+        .cover-section::after {
             content: '★';
             position: absolute;
-            bottom: 30px;
-            right: 40px;
-            font-size: 60px;
-            opacity: 0.3;
+            bottom: 20px;
+            right: 30px;
+            font-size: 80px;
+            opacity: 0.15;
+            animation: spin 20s linear infinite;
         }
-        .cover-logo {
-            font-size: 48px;
-            margin-bottom: 16px;
-            animation: bounce 2s ease-in-out infinite;
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .cover-stars {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            animation: twinkle 2s ease-in-out infinite;
         }
-        .cover-title {
-            font-size: 56px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            letter-spacing: 10px;
-            text-shadow: 3px 4px 12px rgba(0,0,0,0.2);
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
-        .cover-subtitle {
-            font-size: 18px;
-            letter-spacing: 12px;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-        .cover-info {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .cover-badge {
+        .cover-date {
             background: rgba(255,255,255,0.95);
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 50px;
-            color: #FF6B35;
-            font-weight: 700;
             font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            display: inline-block;
             box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
+        .cover-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+        }
+        .cover-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 8px;
+            font-weight: 500;
+        }
+        .cover-badge {
+            margin-top: 20px;
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .badge-item {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FF6B35;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-        /* 主编的话 */
         .editor-note {
             background: #fff;
-            padding: 30px;
+            padding: 24px 30px;
             border-left: 6px solid #FF6B35;
-            margin-bottom: 0;
+            margin: 0;
         }
         .editor-note-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
             color: #FF6B35;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .editor-note-text {
             font-size: 15px;
@@ -108,207 +123,140 @@
         }
         .editor-note-sign {
             text-align: right;
-            margin-top: 16px;
-            font-size: 14px;
+            margin-top: 12px;
+            font-size: 13px;
             color: #888;
         }
 
-        /* 目录 */
-        .toc-section {
-            background: #fff;
-            padding: 35px 40px;
-            margin-bottom: 0;
-            border-bottom: 2px solid #FFE4C4;
-        }
-        .toc-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .toc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-        .toc-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 12px;
-            background: #FFF8F0;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        .toc-item:hover {
-            background: #FFE4C4;
-            border-color: #FF6B35;
-            transform: translateY(-3px);
-        }
-        .toc-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-        .toc-text {
-            font-weight: 700;
-            font-size: 14px;
-            text-align: center;
-            color: #1a1a2e;
-        }
-
-        /* 头版头条 */
         .headline-section {
             background: #fff;
-            padding: 40px;
-            margin-bottom: 0;
-            border-bottom: 2px solid #FFE4C4;
-        }
-        .headline-banner {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 30px;
-            align-items: center;
-        }
-        .headline-image-wrapper {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 12px 48px rgba(0,0,0,0.12);
-        }
-        .headline-image {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            display: block;
-        }
-        .headline-content {
-            padding: 10px;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
         }
         .headline-label {
             display: inline-block;
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            padding: 8px 24px;
+            padding: 6px 20px;
             border-radius: 50px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             color: #fff;
             margin-bottom: 16px;
-            box-shadow: 0 4px 16px rgba(255,107,53,0.3);
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+        }
+        .headline-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .headline-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
         }
         .headline-title {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 900;
             color: #1a1a2e;
             line-height: 1.4;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .headline-highlight {
             font-size: 16px;
             color: #FF6B35;
             font-weight: 600;
-            margin-bottom: 20px;
             padding: 12px 16px;
             background: #FFF8F0;
             border-radius: 12px;
             border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
         }
         .headline-body {
-            margin-top: 25px;
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .headline-body p {
+            margin-bottom: 12px;
+            text-indent: 2em;
         }
 
-        /* 文章卡片 */
-        .article-section {
+        .topic-section {
             background: #fff;
-            padding: 40px;
-            margin-bottom: 0;
-            border-bottom: 2px solid #FFE4C4;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
         }
-        .section-header {
+        .topic-header {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 28px;
-            padding-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
             border-bottom: 3px solid #FFE4C4;
             position: relative;
         }
-        .section-header::after {
+        .topic-header::after {
             content: '';
             position: absolute;
             bottom: -3px;
             left: 0;
-            width: 100px;
+            width: 80px;
             height: 3px;
             background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
         }
-        .section-icon {
-            font-size: 40px;
+        .topic-icon {
+            font-size: 36px;
         }
-        .section-title {
-            font-size: 28px;
+        .topic-title {
+            font-size: 24px;
             font-weight: 900;
             color: #1a1a2e;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
-        .section-number {
-            font-size: 14px;
+        .topic-subtitle {
+            font-size: 13px;
             color: #999;
-            font-weight: 500;
+            margin-left: auto;
         }
 
-        .article-card {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .article-image-wrapper {
+        .article-main-image {
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
-        .article-image {
+        .article-main-image img {
             width: 100%;
-            height: 220px;
+            height: 250px;
             object-fit: cover;
             display: block;
-            transition: transform 0.5s ease;
         }
-        .article-image-wrapper:hover .article-image {
-            transform: scale(1.02);
-        }
-        .article-text {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            text-align: justify;
-        }
+
         .article-title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 800;
             color: #1a1a2e;
             line-height: 1.5;
+            margin-bottom: 12px;
         }
         .article-highlight {
             display: inline-block;
             background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 15px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             color: #FF6B35;
-            border-left: 5px solid #FF6B35;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
         }
         .article-body {
-            font-size: 15px;
-            color: #555;
+            font-size: 16px;
+            color: #444;
             line-height: 2;
         }
         .article-body p {
@@ -316,146 +264,172 @@
             text-indent: 2em;
         }
 
-        /* 金句素材 */
+        .article-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .knowledge-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #1976D2;
+            margin: 16px 0;
+            position: relative;
+        }
+        .knowledge-box::before {
+            content: '💡';
+            position: absolute;
+            top: -8px;
+            left: 16px;
+            font-size: 28px;
+        }
+        .knowledge-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0D47A1;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            padding-left: 30px;
+        }
+        .knowledge-content {
+            font-size: 15px;
+            color: #1565C0;
+            font-weight: 600;
+            padding-left: 30px;
+        }
+
+        .fun-fact-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+            padding: 18px;
+            border-radius: 16px;
+            border-left: 6px solid #C2185B;
+            margin: 16px 0;
+        }
+        .fun-fact-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #880E4F;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .fun-fact-content {
+            font-size: 15px;
+            color: #4A148C;
+            font-weight: 600;
+        }
+
         .golden-quote {
             background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
-            padding: 20px 24px;
+            padding: 18px 22px;
             border-radius: 16px;
             border-left: 6px solid #FF9800;
-            margin-top: 10px;
+            margin-top: 16px;
             position: relative;
         }
         .golden-quote::before {
             content: '"';
             position: absolute;
-            top: -8px;
-            left: 12px;
-            font-size: 48px;
+            top: -6px;
+            left: 10px;
+            font-size: 42px;
             color: #FF9800;
             opacity: 0.2;
             font-family: Georgia, serif;
         }
         .golden-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: #E65100;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 2px;
         }
         .golden-content {
-            font-size: 16px;
+            font-size: 15px;
             color: #E65100;
             font-weight: 700;
             font-style: italic;
         }
 
-        /* 人格点亮 */
         .personality-box {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            padding: 20px 24px;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 18px 22px;
             border-radius: 16px;
-            border-left: 6px solid #1976D2;
-            margin-top: 8px;
+            border-left: 6px solid #388E3C;
+            margin-top: 12px;
         }
         .personality-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
-            color: #0D47A1;
-            margin-bottom: 8px;
+            color: #1B5E20;
+            margin-bottom: 6px;
             letter-spacing: 2px;
         }
         .personality-content {
-            font-size: 16px;
-            color: #0D47A1;
+            font-size: 15px;
+            color: #2E7D32;
             font-weight: 700;
-        }
-
-        /* 趣味知识卡片 */
-        .fun-fact {
-            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-top: 8px;
-        }
-        .fun-fact-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #880E4F;
-            margin-bottom: 6px;
-        }
-        .fun-fact-content {
-            font-size: 14px;
-            color: #4A148C;
-            font-weight: 600;
         }
 
         .article-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #DDD;
         }
         .article-source {
             font-size: 13px;
             color: #999;
         }
-
-        /* 漫画乐园特殊样式 */
-        .comic-section {
-            background: linear-gradient(180deg, #FFF5E6 0%, #FFE4C4 100%);
-            padding: 40px;
-            margin-bottom: 0;
-            border-bottom: 2px solid #FFE4C4;
-        }
-        .comic-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .comic-title {
-            font-size: 24px;
-            font-weight: 800;
+        .article-link {
+            font-size: 13px;
             color: #FF6B35;
-            margin-bottom: 20px;
+            text-decoration: none;
+            font-weight: 600;
         }
-        .comic-image {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .comic-text {
-            font-size: 16px;
-            color: #555;
-            line-height: 2;
-            font-weight: 500;
+        .article-link:hover {
+            text-decoration: underline;
         }
 
-        /* 底部 */
         .magazine-footer {
             background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
-            border-radius: 0 0 24px 24px;
-            padding: 40px;
+            padding: 35px;
             text-align: center;
             color: rgba(255,255,255,0.7);
         }
         .footer-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #fff;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .footer-text {
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 13px;
+            margin-bottom: 6px;
         }
         .footer-slogan {
-            font-size: 14px;
-            margin-top: 16px;
-            padding-top: 16px;
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
             border-top: 1px solid rgba(255,255,255,0.15);
             opacity: 0.7;
             color: #FFE4C4;
@@ -464,445 +438,239 @@
 
         .empty-article {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             background: #FFF8F0;
             border-radius: 20px;
             color: #999;
         }
         .empty-article-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
-        .empty-article-text {
-            font-size: 16px;
+            font-size: 56px;
+            margin-bottom: 12px;
         }
 
         @media (max-width: 768px) {
-            .container { padding: 10px; }
-            .cover-page { padding: 40px 20px; }
+            .container { padding: 0; }
+            .cover-section { padding: 30px 20px 40px; }
             .cover-title { font-size: 36px; letter-spacing: 4px; }
-            .cover-subtitle { font-size: 14px; letter-spacing: 6px; }
-            .cover-info { gap: 12px; }
-            .cover-badge { padding: 8px 16px; font-size: 12px; }
-            .toc-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .toc-item { padding: 16px 8px; }
-            .toc-icon { font-size: 28px; }
-            .headline-banner { grid-template-columns: 1fr; gap: 20px; }
+            .cover-subtitle { font-size: 13px; letter-spacing: 4px; }
+            .headline-section, .topic-section { padding: 20px; }
+            .headline-title { font-size: 24px; }
             .headline-image { height: 220px; }
-            .headline-title { font-size: 26px; }
-            .article-image { height: 180px; }
-            .section-title { font-size: 22px; }
             .article-title { font-size: 20px; }
-            .toc-section, .headline-section, .article-section { padding: 24px 20px; }
+            .article-main-image img { height: 180px; }
+            .article-gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item img { height: 100px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="cover-page">
-            <div class="cover-logo">☀️</div>
+        <header class="cover-section">
+            <span class="cover-stars">✨⭐✨</span>
+            <div class="cover-date">📅 2026年07月21日</div>
             <h1 class="cover-title">少年科普周刊</h1>
-            <p class="cover-subtitle">少 年 科 普 周 刊</p>
-            <div class="cover-info">
-                <span class="cover-badge">📅 第 3 期</span>
-                <span class="cover-badge">2026年07月14日</span>
-                <span class="cover-badge">📖 每周五发布</span>
+            <p class="cover-subtitle">少 年 科 普 日 报</p>
+            <div class="cover-badge">
+                <span class="badge-item">🌟 每日更新</span>
+                <span class="badge-item">📚 第 12 期</span>
+                <span class="badge-item">🎯 专为小学生打造</span>
             </div>
         </header>
 
         <div class="editor-note">
-            <div class="editor-note-title">💌 主编的话</div>
+            <div class="editor-note-title">💌 小编说</div>
             <p class="editor-note-text">
-                嗨，小科学家们！又到了我们每周见面的时间啦～这周世界上又发生了哪些有趣的科学新鲜事呢？
-                快跟我一起，开启本周的奇妙科学之旅吧！记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+                嗨，小科学家们！又到了我们每天见面的时间啦～今天世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启今天的奇妙科学之旅吧！记住：每一个"为什么"，都是打开科学大门的钥匙🔑
             </p>
             <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
         </div>
 
-        <section class="toc-section">
-            <h2 class="toc-title">📋 本期目录</h2>
-            <nav class="toc-grid">
-                <a href="#headline" class="toc-item">
-                    <span class="toc-icon">🌟</span>
-                    <span class="toc-text">头版头条</span>
-                </a>
-                
-                
-                <a href="#hero" class="toc-item">
-                    <span class="toc-icon">⭐</span>
-                    <span class="toc-text">榜样力量</span>
-                </a>
-                
-                
-                
-                <a href="#china" class="toc-item">
-                    <span class="toc-icon">🇨🇳</span>
-                    <span class="toc-text">中国故事</span>
-                </a>
-                
-                
-                
-                <a href="#world" class="toc-item">
-                    <span class="toc-icon">🌍</span>
-                    <span class="toc-text">多元世界</span>
-                </a>
-                
-                
-                
-                <a href="#science" class="toc-item">
-                    <span class="toc-icon">🔬</span>
-                    <span class="toc-text">科学创新</span>
-                </a>
-                
-                
-                
-                <a href="#culture" class="toc-item">
-                    <span class="toc-icon">🎨</span>
-                    <span class="toc-text">文化之旅</span>
-                </a>
-                
-                
-                
-                <a href="#nature" class="toc-item">
-                    <span class="toc-icon">🌿</span>
-                    <span class="toc-text">趣味自然</span>
-                </a>
-                
-                
-                
-                
-            </nav>
-        </section>
-
         
-        <section class="headline-section" id="headline">
-            <div class="headline-banner">
-                <div class="headline-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_headline_src.jpg" alt="太阳能板能折叠？" class="headline-image">
-                    
-                </div>
-                <div class="headline-content">
-                    <span class="headline-label">⭐ 头版头条</span>
-                    <h2 class="headline-title">太阳能板能折叠？</h2>
-                    
-                    <p class="headline-highlight">💡 双层电池配合默契，效率超高。</p>
-                    
-                </div>
-            </div>
+        <section class="headline-section">
+            <span class="headline-label">🌟 今日头条</span>
+            
+            <h2 class="headline-title">天气预报新增橙色色标，可不是随便加上的！</h2>
+            
+            <p class="headline-highlight">💡 上多出了橙色、亮红色这些少见颜色，不再是以前固定的几种配色，...</p>
+            
             <div class="headline-body">
-                <div class="article-body">
-                    <p>你有没有想过，未来的太阳能板可能像纸巾一样薄，还能卷进背包里？🎒 中国科学院的叔叔阿姨们真的做到了！他们发明了一种超级厉害的“叠层”电池，效率突破了28%，创造了世界纪录。</p>
-<p>这种电池就像一块双层蛋糕。上面的“钙钛矿”层专门捕捉明亮的蓝光，下面的“有机”层则负责捡起剩下的红光。它们俩配合默契，一个防紫外线，一个挡湿气，简直是最佳搭档！🤝</p>
-<p>为了找到完美的配方，科学家们尝试了无数次，终于让材料变得既高效又耐用。现在，它不仅能给手机充电，以后甚至可能飞到太空站去工作！🚀</p>
-                </div>
+                <p>上多出了橙色、亮红色这些少见颜色，不再是以前固定的几种配色，这是怎么回事呢？</p>
+<p>我们先看看以前的降水颜色代表什么：浅绿是小雨、深绿是中雨、蓝色是大雨、深蓝是暴雨、紫色是大暴雨，深紫色是特大暴雨，超过250毫米的统一归类为特大暴雨，只用一种颜色表示。这种划分方式无法区分特大暴雨内部几百毫米级别的极端降雨差异。</p>
+<p>这次我们面临一个体型巨大、强度很强、水汽极其充足的</p>
+<p>。首先受影响的是我国台湾地区，加上中央山脉的</p>
+<p>，水汽撞上山体被迫爬升，雨量会急剧增大，局部地区24小时降雨量甚至快要达到1000毫米，远超常规特大暴雨的标准。原来电视天气预报图形中的色标没法直观这种极端雨量差异了。</p>
+<p>为了做到更精准的雨量预报，电视天气预报图全面启用2018年发布并实施的国家标准</p>
+<p>《降水量图形产品规范》（GB/T 35968-2018）</p>
+<p>，这份国标把降雨量细化成11个等级，配套完整的分级色标，只是以往普通降雨过程很少用到全套色块。此次新增的细分色标正是来自于这一标准：黄色对应累计雨量400毫米到600毫米，橙色对应累计雨量600毫米到800毫米，鲜红色则用来标记 800–1000 毫米的超强降雨区域。</p>
+<p>电视天气预报节目中预报图增加细分色标，有两层重要意义：一方面是为了实现</p>
+<p>，快速识别高风险区域；另一方面也和全球变暖息息相关。气候变暖加速</p>
+<p>，台风、强降雨系统的降水能力持续变强，极端暴雨、高温天气越来越多，原先简单的颜色分级已经跟不上预报需求。</p>
+<p>如果局部累计降雨量突破 1000 毫米，预报图还会启用深棕色色块进行标注。</p>
+            </div>
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">知识就是力量</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">坚持不懈</div>
+            </div>
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
                 
-                <div class="golden-quote">
-                    <div class="golden-label">✨ 金句素材</div>
-                    <div class="golden-content">坚持探索，科技改变生活。</div>
-                </div>
-                
-                
-                <div class="personality-box">
-                    <div class="personality-label">🌟 人格点亮</div>
-                    <div class="personality-content">探索精神</div>
-                </div>
-                
-                
-                <p class="article-source">来源：科学网</p>
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=721144" class="article-link" target="_blank">查看原文 →</a>
                 
             </div>
+            
         </section>
         
 
         
         
-        
-        <section class="article-section" id="hero">
-            <div class="section-header">
-                <span class="section-icon">⭐</span>
-                <div>
-                    <h2 class="section-title">榜样力量</h2>
-                </div>
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🇨🇳</span>
+                <h2 class="topic-title">中国故事</h2>
+                <span class="topic-subtitle">🇨🇳</span>
             </div>
-            <div class="article-card">
-                <div class="article-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_hero_2.jpg" alt="考神选医学被劝退？她为啥这么固执！" class="article-image">
-                    
-                </div>
-                <div class="article-text">
-                    <h3 class="article-title">考神选医学被劝退？她为啥这么固执！</h3>
-                    
-                    <span class="article-highlight">💡 梦想比分数更重要，坚持初心最闪光。</span>
-                    
-                    <div class="article-body">
-                        <p>你知道吗？有个河南姐姐高考拿了699分的高分，大家都以为她会选赚钱多的电脑专业。结果，她却选了最难的医学，还报名了清华！🤯 网友们急坏了，纷纷留言说：“别去啦，学医太苦太累，还会穷好多年！”</p>
-<p>可是，这位姐姐心里藏着一个温暖的秘密。她的妈妈生病卧床很久，姐姐看着心疼，立志要治好妈妈的病。她像一株顽强的小草，不玩手机，刻苦学习，就为了实现这个梦想。💪 对她来说，救死扶伤比赚快钱更重要。</p>
-<p>虽然很多人不理解，但爱心也涌来了！医院免费帮阿姨治病，清华也给姐姐发了全额奖学金。✨ 这个故事告诉我们，梦想是无价的。只要心怀善意，坚持初心，全世界都会为你加油喝彩！</p>
-                    </div>
-                    
-                    <div class="golden-quote">
-                        <div class="golden-label">✨ 金句素材</div>
-                        <div class="golden-content">心怀梦想，坚持努力，你就是自己的光。</div>
-                    </div>
-                    
-                    
-                    <div class="personality-box">
-                        <div class="personality-label">🌟 人格点亮</div>
-                        <div class="personality-content">坚持梦想</div>
-                    </div>
-                    
-                    
-                    <p class="article-source">📰 果壳网</p>
+            
+            
+            
+            <h3 class="article-title">时间是什么？宇宙大爆炸之前，时间存在吗？</h3>
+            
+            <span class="article-highlight">💡 时间是什么？宇宙大爆炸之前，时间存在吗？- · 科普中国网...</span>
+            
+            
+            <div class="article-body">
+                <p>时间是什么？宇宙大爆炸之前，时间存在吗？- · 科普中国网</p>
+<p>上传时间：2026-07-21 12:25</p>
+<p>科普中国子品牌，倡导“溯源守拙，问学求新”。</p>
+<p>时间是什么？不同理论各有答案，但又无人能真正说清。大爆炸之前，它存在吗？热力学，真能解释“时间箭头”吗？相对论和量子力学，为何对它的理解完全不同？上海天文台研究员韩文标，带你纵览当前所有理论。</p>
+<p>北京市西城区白纸坊东街2号经济日报社综合业务楼A座</p>
+            </div>
+
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    中国成就：时间是什么？宇宙大爆炸之前，时间存在吗？- · 科普中国网...
                     
                 </div>
             </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    关于这个话题，你还有什么想问的吗？
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">探索永无止境</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">好奇心</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=2&ar_id=721303" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
         </section>
         
         
         
-        
-        
-        <section class="article-section" id="china">
-            <div class="section-header">
-                <span class="section-icon">🇨🇳</span>
-                <div>
-                    <h2 class="section-title">中国故事</h2>
-                </div>
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🔬</span>
+                <h2 class="topic-title">科学创新</h2>
+                <span class="topic-subtitle">🔬</span>
             </div>
-            <div class="article-card">
-                <div class="article-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_china_src.jpg" alt="荔枝为何会变黑？揭秘保鲜魔法" class="article-image">
-                    
-                </div>
-                <div class="article-text">
-                    <h3 class="article-title">荔枝为何会变黑？揭秘保鲜魔法</h3>
-                    
-                    <span class="article-highlight">💡 科技保鲜让荔枝不再快速变黑</span>
-                    
-                    <div class="article-body">
-                        <p>你知道吗？杨贵妃吃的荔枝，可是用快马日夜兼程送来的！🐎 因为荔枝太娇气，摘下来没多久就会变褐、变质。古人为了这一口甜，真是操碎了心呀！</p>
-<p>现在我们有超级科技啦！科学家叔叔阿姨们给荔枝穿上了“隐形防护服”。💊 他们研究出特殊方法，让荔枝果皮不再轻易变黑，就像给水果打了疫苗一样神奇。</p>
-<p>原来，每一颗新鲜荔枝背后，都藏着无数次的实验和努力。🔬 科技不仅让美味更持久，还让历史故事有了新解法。下次吃荔枝时，别忘了这份现代智慧的礼物哦！</p>
-<p>小科学家们，你们还想解锁哪种水果的秘密呢？🍓 保持好奇，去探索更多未知的乐趣吧！</p>
-                    </div>
-                    
-                    <div class="golden-quote">
-                        <div class="golden-label">✨ 金句素材</div>
-                        <div class="golden-content">用智慧守护美味，让科技温暖生活。</div>
-                    </div>
-                    
-                    
-                    <div class="personality-box">
-                        <div class="personality-label">🌟 人格点亮</div>
-                        <div class="personality-content">探索精神</div>
-                    </div>
-                    
-                    
-                    <p class="article-source">📰 科学网</p>
+            
+            
+            
+            <h3 class="article-title">从太空飞来的陨石藏有多少宇宙奥秘？</h3>
+            
+            <span class="article-highlight">💡 等天体。它们往往因天体间的碰撞而飞离了母体，成为宇宙中漂浮的...</span>
+            
+            
+            <div class="article-body">
+                <p>等天体。它们往往因天体间的碰撞而飞离了母体，成为宇宙中漂浮的碎片。可以说，它们就像一群“无家可归的流浪者”，直到被地球引力捕获时，才有了新的目的地。当这些碎片被拽入大气层后，以每秒数十公里的速度与空气剧烈摩擦燃烧，绝大多数在落地前就已烧蚀殆尽。</p>
+<p>从太空飞来的陨石，多数结晶年龄为45亿至46亿年，比地球最古老的岩石还要久远。它们经过高温淬炼，无论形状还是质地都带着独特的“宇宙印记”。刚落地的陨石通常有约1毫米厚的黑色</p>
+<p>”，且因含金属，磁性较强、比重远超普通岩石。它们由</p>
+<p>三类组成，其中约95%是石陨石，内部常见毫米级</p>
+<p>令人惊奇的是，天外飞来的陨石呈现多彩面貌，成因各有不同。铁陨石中，</p>
+<p>因抗腐蚀性差异，酸蚀后显现几何花纹；石铁陨石含宝石级</p>
+<p>除此以外，陨石在漫长的太空中漂浮中，还会被</p>
+<p>和微观痕迹。这些“隐形刻度”是研究太空环境的重要线索，能帮科学家追溯它在宇宙中漂泊了多久。</p>
+<p>（作者黄一冉系湖南科普作家协会科学教育专委会副主委）</p>
+            </div>
+
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    科学原理：等天体。它们往往因天体间的碰撞而飞离了母体，成为宇宙中漂浮的...
                     
                 </div>
             </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    你知道吗？科学家们还在研究更多有趣的发现呢！
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">好奇心是最好的老师</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">好奇心</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=721429" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
         </section>
-        
-        
-        
-        
-        
-        <section class="article-section" id="world">
-            <div class="section-header">
-                <span class="section-icon">🌍</span>
-                <div>
-                    <h2 class="section-title">多元世界</h2>
-                </div>
-            </div>
-            <div class="article-card">
-                <div class="article-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_world_0.jpg" alt="为什么夏天用电像怪兽？" class="article-image">
-                    
-                </div>
-                <div class="article-text">
-                    <h3 class="article-title">为什么夏天用电像怪兽？</h3>
-                    
-                    <span class="article-highlight">💡 高温让空调成用电大户，绿色节能很重要</span>
-                    
-                    <div class="article-body">
-                        <p>你有没有想过，夏天打开空调时，其实是在给地球“退烧”？最近，全国用电负荷第一次突破了15亿千瓦，创下了历史新高！这就像一个超级大胃王，一口气吃掉了平时好多倍的电量。😲</p>
-<p>你猜怎么着？这些电大部分都被空调“抢”走了，占比接近三成！除了大家吹冷风，新能源汽车和超级计算机也在悄悄“吃电”。随着天气越来越热，气温每升高1度，电网的压力就大一分。⚡</p>
-<p>为了保护我们的电器不“累趴下”，科学家们正在努力寻找更省电的方法。未来，我们或许能用更多绿色的能源，让天空更蓝，电费更省。下次开空调时，记得感谢那些幕后英雄哦！🌱</p>
-                    </div>
-                    
-                    <div class="golden-quote">
-                        <div class="golden-label">✨ 金句素材</div>
-                        <div class="golden-content">节约每一度电，就是守护美丽的地球家园</div>
-                    </div>
-                    
-                    
-                    <div class="personality-box">
-                        <div class="personality-label">🌟 人格点亮</div>
-                        <div class="personality-content">环保意识</div>
-                    </div>
-                    
-                    
-                    <p class="article-source">📰 果壳网</p>
-                    
-                </div>
-            </div>
-        </section>
-        
-        
-        
-        
-        
-        <section class="article-section" id="science">
-            <div class="section-header">
-                <span class="section-icon">🔬</span>
-                <div>
-                    <h2 class="section-title">科学创新</h2>
-                </div>
-            </div>
-            <div class="article-card">
-                <div class="article-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_science_1.jpg" alt="去火星能睡一觉就到吗？" class="article-image">
-                    
-                </div>
-                <div class="article-text">
-                    <h3 class="article-title">去火星能睡一觉就到吗？</h3>
-                    
-                    <span class="article-highlight">💡 人体不能随意休眠，需保持运动才健康。</span>
-                    
-                    <div class="article-body">
-                        <p>你想过吗？坐飞船去外星，能不能像看电影里那样，睡一觉就到啦？🚀 听起来太棒了！但现实可没那么简单，科学家说这其实很危险哦。</p>
-<p>我们的身体可不是手机，不能随便“关机待机”。⚠️ 如果一直躺着不动，血液会变慢形成血栓，肌肉也会缩水变弱。就像你很久不走路，腿脚都会没力气呢！</p>
-<p>那把人冻起来呢？❄️ 也不行！冰块会像小刀子一样刺破细胞，醒来可能就坏掉了。幸好大自然有“冬眠”的小动物做榜样，但它们也不是真的睡着了，中间还要醒醒呢。☀️</p>
-<p>所以，星际旅行没那么容易。我们要先照顾好身体，才能去更远的地方探险！✊</p>
-                    </div>
-                    
-                    <div class="golden-quote">
-                        <div class="golden-label">✨ 金句素材</div>
-                        <div class="golden-content">科学探索要脚踏实地，勇敢面对挑战。</div>
-                    </div>
-                    
-                    
-                    <div class="personality-box">
-                        <div class="personality-label">🌟 人格点亮</div>
-                        <div class="personality-content">探索精神</div>
-                    </div>
-                    
-                    
-                    <p class="article-source">📰 科普中国</p>
-                    
-                </div>
-            </div>
-        </section>
-        
-        
-        
-        
-        
-        <section class="article-section" id="culture">
-            <div class="section-header">
-                <span class="section-icon">🎨</span>
-                <div>
-                    <h2 class="section-title">文化之旅</h2>
-                </div>
-            </div>
-            <div class="article-card">
-                <div class="article-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_culture_src.png" alt="为什么走进迷宫就出不来了？" class="article-image">
-                    
-                </div>
-                <div class="article-text">
-                    <h3 class="article-title">为什么走进迷宫就出不来了？</h3>
-                    
-                    <span class="article-highlight">💡 喀什老城像迷宫，街道弯弯藏着故事。</span>
-                    
-                    <div class="article-body">
-                        <p>你有没有想过，有些地方像巨大的迷宫，转一圈就能绕晕你？🧐 在中国最西边，藏着这样一个神奇的地方——喀什老城。</p>
-<p>那里的街道弯弯曲曲，像蜘蛛网一样复杂。两边住着热情的人家，阳台上开满了鲜花。走在窄窄的小巷里，总能闻到烤羊肉的香味，听到快乐的歌声。✨</p>
-<p>这里还是 famous 电影《追风筝的人》的取景地哦！古老的茶馆里，老爷爷们喝着茶，弹着乐器，仿佛在讲述过去的故事。每一块砖头都好像在眨眼说话呢。</p>
-<p>虽然很容易迷路，但每一步都能发现惊喜。喀什就像一个充满魔法的盒子，等着你去打开探索！🚀</p>
-                    </div>
-                    
-                    <div class="golden-quote">
-                        <div class="golden-label">✨ 金句素材</div>
-                        <div class="golden-content">勇敢走进未知，每个角落都有惊喜。</div>
-                    </div>
-                    
-                    
-                    <div class="personality-box">
-                        <div class="personality-label">🌟 人格点亮</div>
-                        <div class="personality-content">探索精神</div>
-                    </div>
-                    
-                    
-                    <p class="article-source">📰 中国国家地理</p>
-                    
-                </div>
-            </div>
-        </section>
-        
-        
-        
-        
-        
-        <section class="article-section" id="nature">
-            <div class="section-header">
-                <span class="section-icon">🌿</span>
-                <div>
-                    <h2 class="section-title">趣味自然</h2>
-                </div>
-            </div>
-            <div class="article-card">
-                <div class="article-image-wrapper">
-                    
-                    <img src="archive/issue_3/images/current_nature_0.jpg" alt="盐城黄海湿地——落潮留痕沙洲如画" class="article-image">
-                    
-                </div>
-                <div class="article-text">
-                    <h3 class="article-title">盐城黄海湿地——落潮留痕沙洲如画</h3>
-                    
-                    <span class="article-highlight">💡 发布时间：2020年06月01日  文章出自：用户投稿   ...</span>
-                    
-                    <div class="article-body">
-                        <p>发布时间：2020年06月01日  文章出自：用户投稿   作者：</p>
-<p>在我国的黄海南部，有一片湿地——江苏盐城黄海湿地，目前不仅是世界上最大的海岸型湿地，也是世界上面积最大的辐射沙洲群。在绵延580公里的海岸线上，它包括滩涂、湖泊、河流、沼泽，巨型沉积地貌，其中尤为独特的当数这里的沙洲群，庞大的沙洲群像一把海中巨扇，而沉积的淤泥和落潮沙痕如条条巨龙匍匐潜行，如参天大树和海上森林,神奇瑰丽、如梦如幻—— 与地球上大多数水下沙脊群不同，南黄海沙脊群主要分布在潮间带上，拥有涨潮为大海，落潮为巨滩的奇观精致。</p>
-<p>2019年7月5日，盐城黄海湿地（申报名称为“中国黄（渤）海候鸟栖息地（第一期）”）被列入世界自然遗产名录。）</p>
-<p>真的想象不出有比这更美的景观，更精彩的画面了。几乎每一道留痕都光泽莹莹，贮满了的淡泊和淳朴，也仿佛是汲足了海边盐土中的营养，又彰显着无限的生机萌动。这里没有农人勤恳的呵护，但是沙洲群自然形成的每一幅画面，无不都是柔情万种的歌咏和观者的惊叹。落潮后的沙洲自行成画，你必见又是好一派芸芸众生，或摇曳着尘世的沧桑，或笑迎温馨的阳光。一幅幅奇妙的图案，花木森林、山川河流、草原沙漠、日月流云、果树飞鸟，天下万物似乎尽在其中。富有艺术感的画面时而热烈奔放，时而“散漫”,洋溢着一种跌宕和绮丽的风光。而且其画面在潮水的每次冲刷下都会瞬间变幻，如童话中的奇幻世界，又似乎是一幅幅动态的蒙太奇效果，面对大自然如此的杰作又怎能不让人惊叹不已呢！</p>
-                    </div>
-                    
-                    <div class="golden-quote">
-                        <div class="golden-label">✨ 金句素材</div>
-                        <div class="golden-content">用心观察，处处是科学</div>
-                    </div>
-                    
-                    
-                    <div class="personality-box">
-                        <div class="personality-label">🌟 人格点亮</div>
-                        <div class="personality-content">坚持不懈</div>
-                    </div>
-                    
-                    
-                    <p class="article-source">📰 中国国家地理</p>
-                    
-                </div>
-            </div>
-        </section>
-        
-        
-        
         
         
 
         <footer class="magazine-footer">
             <p class="footer-title">少年科普周刊</p>
-            <p class="footer-text">每周五晚8点，带你探索科学的奇妙世界</p>
-            <p class="footer-text">第 3 期 · 2026年07月14日</p>
+            <p class="footer-text">每天下午4点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 12 期 · 2026年07月21日</p>
             <p class="footer-slogan">
                 保持好奇，热爱探索，每个孩子都是小小科学家 🔬
             </p>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少年科普周刊 - 第11期</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #FFF9E6 0%, #FFF5D4 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .cover-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 30px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%);
+        }
+        .cover-section::after {
+            content: '★';
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 80px;
+            opacity: 0.15;
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .cover-stars {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .cover-date {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .cover-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+        }
+        .cover-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 8px;
+            font-weight: 500;
+        }
+        .cover-badge {
+            margin-top: 20px;
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .badge-item {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FF6B35;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .editor-note {
+            background: #fff;
+            padding: 24px 30px;
+            border-left: 6px solid #FF6B35;
+            margin: 0;
+        }
+        .editor-note-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FF6B35;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .editor-note-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.9;
+        }
+        .editor-note-sign {
+            text-align: right;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .headline-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .headline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+        }
+        .headline-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .headline-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .headline-title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1a1a2e;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .headline-highlight {
+            font-size: 16px;
+            color: #FF6B35;
+            font-weight: 600;
+            padding: 12px 16px;
+            background: #FFF8F0;
+            border-radius: 12px;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .headline-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .headline-body p {
+            margin-bottom: 12px;
+            text-indent: 2em;
+        }
+
+        .topic-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #FFE4C4;
+            position: relative;
+        }
+        .topic-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
+        }
+        .topic-icon {
+            font-size: 36px;
+        }
+        .topic-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+        .topic-subtitle {
+            font-size: 13px;
+            color: #999;
+            margin-left: auto;
+        }
+
+        .article-main-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .article-main-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .article-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF6B35;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .article-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .article-body p {
+            margin-bottom: 14px;
+            text-indent: 2em;
+        }
+
+        .article-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .knowledge-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #1976D2;
+            margin: 16px 0;
+            position: relative;
+        }
+        .knowledge-box::before {
+            content: '💡';
+            position: absolute;
+            top: -8px;
+            left: 16px;
+            font-size: 28px;
+        }
+        .knowledge-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0D47A1;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            padding-left: 30px;
+        }
+        .knowledge-content {
+            font-size: 15px;
+            color: #1565C0;
+            font-weight: 600;
+            padding-left: 30px;
+        }
+
+        .fun-fact-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+            padding: 18px;
+            border-radius: 16px;
+            border-left: 6px solid #C2185B;
+            margin: 16px 0;
+        }
+        .fun-fact-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #880E4F;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .fun-fact-content {
+            font-size: 15px;
+            color: #4A148C;
+            font-weight: 600;
+        }
+
+        .golden-quote {
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #FF9800;
+            margin-top: 16px;
+            position: relative;
+        }
+        .golden-quote::before {
+            content: '"';
+            position: absolute;
+            top: -6px;
+            left: 10px;
+            font-size: 42px;
+            color: #FF9800;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        .golden-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #E65100;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .golden-content {
+            font-size: 15px;
+            color: #E65100;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .personality-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #388E3C;
+            margin-top: 12px;
+        }
+        .personality-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1B5E20;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .personality-content {
+            font-size: 15px;
+            color: #2E7D32;
+            font-weight: 700;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #DDD;
+        }
+        .article-source {
+            font-size: 13px;
+            color: #999;
+        }
+        .article-link {
+            font-size: 13px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        .magazine-footer {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            padding: 35px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+        .footer-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .footer-text {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        .footer-slogan {
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0.7;
+            color: #FFE4C4;
+            font-weight: 500;
+        }
+
+        .empty-article {
+            text-align: center;
+            padding: 40px 20px;
+            background: #FFF8F0;
+            border-radius: 20px;
+            color: #999;
+        }
+        .empty-article-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0; }
+            .cover-section { padding: 30px 20px 40px; }
+            .cover-title { font-size: 36px; letter-spacing: 4px; }
+            .cover-subtitle { font-size: 13px; letter-spacing: 4px; }
+            .headline-section, .topic-section { padding: 20px; }
+            .headline-title { font-size: 24px; }
+            .headline-image { height: 220px; }
+            .article-title { font-size: 20px; }
+            .article-main-image img { height: 180px; }
+            .article-gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item img { height: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="cover-section">
+            <span class="cover-stars">✨⭐✨</span>
+            <div class="cover-date">📅 2026年07月20日</div>
+            <h1 class="cover-title">少年科普周刊</h1>
+            <p class="cover-subtitle">少 年 科 普 日 报</p>
+            <div class="cover-badge">
+                <span class="badge-item">🌟 每日更新</span>
+                <span class="badge-item">📚 第 11 期</span>
+                <span class="badge-item">🎯 专为小学生打造</span>
+            </div>
+        </header>
+
+        <div class="editor-note">
+            <div class="editor-note-title">💌 小编说</div>
+            <p class="editor-note-text">
+                嗨，小科学家们！又到了我们每天见面的时间啦～今天世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启今天的奇妙科学之旅吧！记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+            </p>
+            <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
+        </div>
+
+        
+        <section class="headline-section">
+            <span class="headline-label">🌟 今日头条</span>
+            
+            <h2 class="headline-title">强降雨持续，这些地区有大暴雨、雷暴大风！注意防范次生灾害</h2>
+            
+            <p class="headline-highlight">💡 今天（7月20日），广西至长江中下游等地主雨带维持，部分地区...</p>
+            
+            <div class="headline-body">
+                <p>今天（7月20日），广西至长江中下游等地主雨带维持，部分地区有大到暴雨，局地</p>
+<p>天气。其中，内蒙古中部、河北西部和北部、安徽南部、江苏东北部、江西东北部等地的局地将有10至11级雷暴大风，最大风力可达11级以上。</p>
+<p>西北地区中部、内蒙古中东部、华北、江淮东部、江南、华南等地的部分地区将有</p>
+<p>天气，其中，河北北部、江苏北部、江西北部、广西东北部等地的部分地区小时雨量大于50毫米，最大可达80毫米以上。</p>
+<p>预计，7月20日8时至21日8时，广西中东部、广东西部和北部、湖南南部、江西中北部、安徽南部、江苏大部、河北北部、北京、天津北部等地部分地区有大到暴雨。其中，广西东北部、湖南东南部等地局地有大暴雨（100至180毫米）。上述部分地区伴有短时强降水（最大小时降雨量20至50毫米，局地可超过80毫米），局地有雷暴大风或冰雹等强对流天气。</p>
+<p>据气象部门预报，7月19日至21日，广西北部东部有持续性</p>
+<p>，其中广西东部局地累计雨量可达300毫米至450毫米。根据《国家防汛抗旱应急预案》及有关规定，国家防总决定于7月19日17时针对广西启动防汛四级应急响应。</p>
+<p>随着多地陆续进入汛期关键阶段，短时强对流天气频发，</p>
+<p>当强降雨超出城市排水能力，内涝便可能悄然来袭。下穿式立交桥、地下车库、老旧小区低洼地带，都是高风险区域。</p>
+<p>行人涉水时，务必远离路灯杆、配电箱等电力设施，警惕水面漩涡。</p>
+<p>驾车遇积水，坚持“宁绕十里路，不涉一步险”；若车辆熄火且水位上涨，果断弃车逃生，用安全锤击碎侧窗四角破窗。</p>
+<p>家中若进水，第一时间切断电源、气源，迅速向高处转移。</p>
+<p>山洪突发性强、破坏力大，常裹挟泥沙石块，形如“泥浆奔袭”。</p>
+<p>听到山谷传来类似火车轰鸣或闷雷声，极可能是山洪前兆。</p>
+<p>绝不顺沟跑、不爬树、不贪恋财物，立即向垂直于沟道两侧的高坡快速撤离。</p>
+<p>若被困，抓住漂浮物，拨打 110、119、120，清晰报告位置。</p>
+            </div>
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">科学改变世界</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">探索精神</div>
+            </div>
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=721017" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🇨🇳</span>
+                <h2 class="topic-title">中国故事</h2>
+                <span class="topic-subtitle">🇨🇳</span>
+            </div>
+            
+            
+            
+            <h3 class="article-title">突破！科技风向标｜从经验到数据：精准营养如何为畜牧业绿色转型破题</h3>
+            
+            <span class="article-highlight">💡 突破！科技风向标｜从经验到数据：精准营养如何为畜牧业绿色转型...</span>
+            
+            
+            <div class="article-body">
+                <p>突破！科技风向标｜从经验到数据：精准营养如何为畜牧业绿色转型破题- · 科普中国网</p>
+<p>突破！科技风向标｜从经验到数据：精准营养如何为畜牧业绿色转型破题</p>
+<p>上传时间：2026-07-20 13:51</p>
+<p>突破！科技风向标｜从经验到数据：精准营养如何为畜牧业绿色转型破题</p>
+<p>精准营养通过‌源头减量（低蛋白日粮）、过程提效（动态配方   智能饲喂）与末端减排（粪污氮磷降低）‌三大核心机制，破解畜牧业“高耗粮、高排放、低效率”困局，是实现绿色转型的关键技术引擎。</p>
+<p>精准营养不仅是技术升级，更是产业重构。它推动畜牧业从‌粗放扩张‌转向‌内涵式增长‌：在保障供给安全前提下，实现饲料资源节约 20% 左右，氮磷排放减少 30% 以上，同时提升畜产品品质与养殖经济效益，形成“节粮 - 减排 - 增效”的正向循环，为种养结合与循环农业奠定坚实基础。</p>
+<p>北京市西城区白纸坊东街2号经济日报社综合业务楼A座</p>
+            </div>
+
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    中国成就：突破！科技风向标｜从经验到数据：精准营养如何为畜牧业绿色转型...
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    关于这个话题，你还有什么想问的吗？
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">每一个发现都从提问开始</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">好奇心</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=2&ar_id=721103" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🔬</span>
+                <h2 class="topic-title">科学创新</h2>
+                <span class="topic-subtitle">🔬</span>
+            </div>
+            
+            
+            <div class="article-main-image">
+                <img src="images/current_science_src_0.jpg" alt="科学网-地球磁层“调速”，让月背“晒太阳”更深">
+            </div>
+            
+            
+            <h3 class="article-title">科学网-地球磁层“调速”，让月背“晒太阳”更深</h3>
+            
+            <span class="article-highlight">💡 作者：冯丽妃 来源：中国科学报 发布时间：2026/7/17...</span>
+            
+            
+            <div class="article-body">
+                <p>作者：冯丽妃 来源：中国科学报 发布时间：2026/7/17 9:20:41</p>
+<p>太阳日冕层时刻在喷高速带电粒子流，形成太阳风。太阳风与地球磁层相互作用会引发极光，强烈时还会干扰无线电通信及电网系统。</p>
+<p>历史上，太阳风是如何挥发的？科学家尝试用月壤来回答这个问题。因为月壤长期直接暴露于太阳风中，是研究其挥发历史的“天然档案”。然而，月球始终以同一面朝向地球，太阳风在月球正背面的注入是否会存在差异？由于缺乏来自背面的样品，这一猜想一直无法得到实证检验。</p>
+<p>现在，中国科学院地质与地球物理研究所博士后张徐航在导师贺怀宇研究员指导下，联合中国科学技术大学和嫦娥七号挥发分载荷团队，利用中国国家航天局提供的嫦娥六号月壤样品开展了系统的稀有气体同位素分析。研究发现，月球正面和背面接收到的太阳风的确存在系统性差异，且地球磁层在其中扮演了“调速器”的角色。相关研究7月15日在线发表于《自然—地球科学》。</p>
+<p>太阳风是太阳系内挥发分传输的核心载体。如何从月壤的“档案”中寻找太阳风的踪迹呢？研究团队瞄准了五种稀有气体——氦、氖、氩、氪、氙。“这些气体具有化学惰性，是追溯太阳风注入过程和后期改造的忠实示踪剂。”论文第一作者张徐航对《中国科学报》说。</p>
+<p>此前，科学家基于阿波罗、月球号和嫦娥五号正面样品的研究，已建立起月壤挥发分主要源于太阳风注入以及陨石、彗星撞击的基本框架。</p>
+<p>然而，由于月球具有二分性——正面朝向地球，会反复穿越地球磁层，背面则完全不受地球磁层遮蔽。这种空间特性对太阳风注入造成的影响并不得而知。嫦娥六号任务首次从月球背面南极-艾特肯盆地带回的1935克月壤，为解开这一谜题提供了历史契机。</p>
+<p>研究团队采用分步加热和全熔激光提取技术，精细测定了五种稀有气体的浓度与同位素组成，并着重对比了来自嫦娥五号的月壤正面样品与嫦娥六号的月球背面样品中重稀有气体氪和氙的释放规律。</p>
+<p>结果显示，嫦娥六号月壤的氖同位素组成呈现出极为独特的特征——其氖20、氖22比值平均为11.34±0.22，远低于所有已知的月球正面样品，极为接近理论上的强烈分馏太阳风端元（~11.2）。这表明月球背面经历了更为极端的分馏过程，使其富集重同位素，仅用传统的溅射、扩散或侵蚀模型已无法完全解释，暗示背面可能存在更为复杂的同位素分馏机制或一个未被发现的低氖同位素端元。</p>
+            </div>
+
+            
+            <div class="article-gallery">
+                
+                <div class="gallery-item">
+                    <img src="images/current_science_src_1.jpg" alt="配图">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/current_science_src_2.gif" alt="配图">
+                </div>
+                
+            </div>
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    科学原理：作者：冯丽妃 来源：中国科学报 发布时间：2026/7/17...
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    你知道吗？科学家们还在研究更多有趣的发现呢！
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">知识就是力量</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">善于观察</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="https://news.sciencenet.cn/htmlnews/2026/7/568326.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+
+        <footer class="magazine-footer">
+            <p class="footer-title">少年科普周刊</p>
+            <p class="footer-text">每天下午4点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 11 期 · 2026年07月20日</p>
+            <p class="footer-slogan">
+                保持好奇，热爱探索，每个孩子都是小小科学家 🔬
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
