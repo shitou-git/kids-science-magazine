@@ -458,8 +458,17 @@
             .headline-image { height: 220px; }
             .article-title { font-size: 20px; }
             .article-main-image img { height: 180px; }
-            .article-gallery { grid-template-columns: repeat(2, 1fr); }
-            .gallery-item img { height: 100px; }
+            .article-gallery {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .gallery-item img { height: 160px; }
+            .article-highlight { display: block; word-break: break-word; }
+            .knowledge-content, .fun-fact-content, .golden-content, .personality-content {
+                word-break: break-word;
+            }
+            .topic-header { flex-wrap: wrap; }
+            .topic-subtitle { display: none; }
         }
     </style>
 </head>
