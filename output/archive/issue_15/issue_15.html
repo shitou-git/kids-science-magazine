@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少年科普周刊 - 第15期</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #FFF9E6 0%, #FFF5D4 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .cover-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 30px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 60%);
+        }
+        .cover-section::after {
+            content: '★';
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 80px;
+            opacity: 0.15;
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .cover-stars {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .cover-date {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .cover-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+        }
+        .cover-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 8px;
+            font-weight: 500;
+        }
+        .cover-badge {
+            margin-top: 20px;
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .badge-item {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FF6B35;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .editor-note {
+            background: #fff;
+            padding: 24px 30px;
+            border-left: 6px solid #FF6B35;
+            margin: 0;
+        }
+        .editor-note-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FF6B35;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .editor-note-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.9;
+        }
+        .editor-note-sign {
+            text-align: right;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .headline-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .headline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+        }
+        .headline-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .headline-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .headline-title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1a1a2e;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .headline-highlight {
+            font-size: 16px;
+            color: #FF6B35;
+            font-weight: 600;
+            padding: 12px 16px;
+            background: #FFF8F0;
+            border-radius: 12px;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .headline-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .headline-body p {
+            margin-bottom: 12px;
+            text-indent: 2em;
+        }
+
+        .topic-section {
+            background: #fff;
+            padding: 30px;
+            margin: 0;
+            border-bottom: 3px solid #FFE4C4;
+        }
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #FFE4C4;
+            position: relative;
+        }
+        .topic-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
+        }
+        .topic-icon {
+            font-size: 36px;
+        }
+        .topic-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+        .topic-subtitle {
+            font-size: 13px;
+            color: #999;
+            margin-left: auto;
+        }
+
+        .article-main-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .article-main-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .article-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF6B35;
+            border-left: 4px solid #FF6B35;
+            margin-bottom: 16px;
+        }
+        .article-body {
+            font-size: 16px;
+            color: #444;
+            line-height: 2;
+        }
+        .article-body p {
+            margin-bottom: 14px;
+            text-indent: 2em;
+        }
+
+        .article-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .knowledge-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #1976D2;
+            margin: 16px 0;
+            position: relative;
+        }
+        .knowledge-box::before {
+            content: '💡';
+            position: absolute;
+            top: -8px;
+            left: 16px;
+            font-size: 28px;
+        }
+        .knowledge-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0D47A1;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            padding-left: 30px;
+        }
+        .knowledge-content {
+            font-size: 15px;
+            color: #1565C0;
+            font-weight: 600;
+            padding-left: 30px;
+        }
+
+        .fun-fact-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+            padding: 18px;
+            border-radius: 16px;
+            border-left: 6px solid #C2185B;
+            margin: 16px 0;
+        }
+        .fun-fact-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #880E4F;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .fun-fact-content {
+            font-size: 15px;
+            color: #4A148C;
+            font-weight: 600;
+        }
+
+        .golden-quote {
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #FF9800;
+            margin-top: 16px;
+            position: relative;
+        }
+        .golden-quote::before {
+            content: '"';
+            position: absolute;
+            top: -6px;
+            left: 10px;
+            font-size: 42px;
+            color: #FF9800;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        .golden-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #E65100;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .golden-content {
+            font-size: 15px;
+            color: #E65100;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .personality-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border-left: 6px solid #388E3C;
+            margin-top: 12px;
+        }
+        .personality-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1B5E20;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .personality-content {
+            font-size: 15px;
+            color: #2E7D32;
+            font-weight: 700;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #DDD;
+        }
+        .article-source {
+            font-size: 13px;
+            color: #999;
+        }
+        .article-link {
+            font-size: 13px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        .magazine-footer {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            padding: 35px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+        .footer-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .footer-text {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        .footer-slogan {
+            font-size: 13px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0.7;
+            color: #FFE4C4;
+            font-weight: 500;
+        }
+
+        .empty-article {
+            text-align: center;
+            padding: 40px 20px;
+            background: #FFF8F0;
+            border-radius: 20px;
+            color: #999;
+        }
+        .empty-article-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0; }
+            .cover-section { padding: 30px 20px 40px; }
+            .cover-title { font-size: 36px; letter-spacing: 4px; }
+            .cover-subtitle { font-size: 13px; letter-spacing: 4px; }
+            .headline-section, .topic-section { padding: 20px; }
+            .headline-title { font-size: 24px; }
+            .headline-image { height: 220px; }
+            .article-title { font-size: 20px; }
+            .article-main-image img { height: 180px; }
+            .article-gallery {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .gallery-item img { height: 160px; }
+            .article-highlight { display: block; word-break: break-word; }
+            .knowledge-content, .fun-fact-content, .golden-content, .personality-content {
+                word-break: break-word;
+            }
+            .topic-header { flex-wrap: wrap; }
+            .topic-subtitle { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="cover-section">
+            <span class="cover-stars">✨⭐✨</span>
+            <div class="cover-date">📅 2026年07月24日</div>
+            <h1 class="cover-title">少年科普周刊</h1>
+            <p class="cover-subtitle">少 年 科 普 日 报</p>
+            <div class="cover-badge">
+                <span class="badge-item">🌟 每日更新</span>
+                <span class="badge-item">📚 第 15 期</span>
+                <span class="badge-item">🎯 专为小学生打造</span>
+            </div>
+        </header>
+
+        <div class="editor-note">
+            <div class="editor-note-title">💌 小编说</div>
+            <p class="editor-note-text">
+                嗨，小科学家们！又到了我们每天见面的时间啦～今天世界上又发生了哪些有趣的科学新鲜事呢？
+                快跟我一起，开启今天的奇妙科学之旅吧！记住：每一个"为什么"，都是打开科学大门的钥匙🔑
+            </p>
+            <p class="editor-note-sign">—— 你的大朋友 科普小编</p>
+        </div>
+
+        
+        <section class="headline-section">
+            <span class="headline-label">🌟 今日头条</span>
+            
+            <div class="headline-image-wrapper">
+                <img src="images/current_headline_src_0.jpg" alt="科学网-扎根边疆十余载，她在森林深处找到一生热爱" class="headline-image">
+            </div>
+            
+            <h2 class="headline-title">科学网-扎根边疆十余载，她在森林深处找到一生热爱</h2>
+            
+            <p class="headline-highlight">💡 作者：杜珊妮 来源：中国科学报 发布时间：2026/7/23...</p>
+            
+            <div class="headline-body">
+                <p>作者：杜珊妮 来源：中国科学报 发布时间：2026/7/23 15:40:56</p>
+<p>清晨，在西双版纳雨林深处，杨洁背着工具包、脚踩军绿色解放鞋，正蹲在一颗树苗前，熟练地测量、采样。林子里潮湿闷热，蚊虫在耳边嗡嗡盘旋，蚂蟥悄无声息地吸附在皮肤上“饱餐”，但她似乎不为所动，起身又走向下一棵植被……</p>
+<p>在许多人看来，群落生态研究的野外工作辛苦且枯燥，但杨洁却乐在其中。“在林子里待久了，我会觉得我和这些树是共呼吸的，它们也在蒸腾、生长，也有自己的生命活动。时间长了，我觉得自己也是这个森林的一部分。”</p>
+<p>从西双版纳20公顷的监测样地，到高黎贡山的腹地，再到泰国的自然保护区，在过去20余年里，中国科学院西双版纳热带植物园（以下简称版纳植物园）研究员杨洁，把大半时间都留给了森林。她用脚步丈量雨林的每一寸土地，用数据记录植被生长，不仅见证了一片片森林的动态变迁，也在枝叶间找到了一生热爱的科研事业。今年，杨洁被评为中国科学院三八红旗手。</p>
+<p>“小时候，母亲常会带我到家附近公园的山林游玩，教我辨认各类花草树木。”杨洁回忆说。这座山林不大，却陪伴她度过了整个年少时光，也悄然根植了她对野外探索的浓厚兴趣。</p>
+<p>2001年，杨洁考入四川师范大学生命科学学院。尽管专业课程涵盖整个生物学领域，但她只对植物学情有独钟。为争取更多学习机会，自大一开始，杨洁就主动申请到植物学实验室帮忙；每年暑假，她还会前往青城山开展野外实习，实地认识植物、采集标本。</p>
+<p>2005年，杨洁以专业第一的优异成绩，考入中国科学院昆明植物研究所，攻读植物分类学。硕士期间，她深耕滇东南边境植物区系研究，扎根野外开展了大量实地调查，完成了一项重要的野外任务——黄连山植物多样性调查。</p>
+<p>黄连山位于中国、越南、老挝三国交界，是典型的热带雨林区域，也是国家级自然保护区。彼时，由于保护区需重新勘界并修建水库，下游部分森林急需砍伐，并在淹没前完成植物调查，摸清当地的植物种类和珍稀濒危物种情况。杨洁的核心任务，就是进入被淹区域采集标本、记录植物多样性。</p>
+            </div>
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">好奇心是最好的老师</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">好奇心</div>
+            </div>
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="https://news.sciencenet.cn/htmlnews/2026/7/568736.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🇨🇳</span>
+                <h2 class="topic-title">中国故事</h2>
+                <span class="topic-subtitle">🇨🇳</span>
+            </div>
+            
+            
+            
+            <h3 class="article-title">月球上发现了26亿年前的岩浆活动，月球真是"死星"吗？</h3>
+            
+            <span class="article-highlight">💡 月球死了吗？这个问题困扰了科学家几百年。传统观点认为，月球在...</span>
+            
+            
+            <div class="article-body">
+                <p>月球死了吗？这个问题困扰了科学家几百年。传统观点认为，月球在几十亿年前就已经"熄火"——</p>
+<p>停止，变成了一颗冰冷的死星。但2024年嫦娥六号带回的</p>
+<p>样品，却彻底颠覆了这个认知。科学家在月背样品中发现了约26亿年前的年轻岩浆活动遗迹，这是人类首次在</p>
+<p>发现如此年轻的火山活动证据。这意味着什么？月球真的是一颗彻底沉寂的星球吗？还是它只是在沉睡，等待着被重新唤醒？</p>
+<p>2024年，嫦娥六号从月球背面带回了1935.3克珍贵样品。这是人类历史上首次获取月球背面的样本，填补了月球研究的多项空白。想想看，人类曾经6次登上月球，12名宇航员在月球表面留下了足迹，但所有这些任务都只去了月球的正面——那个永远朝向地球的一面。为什么？因为月球被地球</p>
+<p>了，它以同一面朝向地球，我们在地球上永远看不到月球的背面。这就像你只能看到一扇旋转门的正面，而永远看不到背面在发生什么。苏联和美国的探测器曾经拍摄过月球背面的照片，但从未有国家从那里带回过样本。直到2024年，中国做到了。</p>
+<p>中国科学院地质与地球物理研究所的科学家对这些样品进行了详细分析，结果令人震惊。分析表明，月球背面的岩石中，存在距今约26亿年的岩浆活动遗迹。这个数字让科学家们大为意外——月球背面的火山活动竟然比正面更年轻！在月球正面，大部分火山岩形成于30到40亿年前；而月背的这些岩石，却记录了距今26亿年前的岩浆活动。这意味着月球内部的热演化比我们想象的复杂得多，两面并非同时"熄火"。</p>
+<p>这个发现为什么重要？因为月球正面和背面的差异实在太大了。正面分布着大量被称为"</p>
+<p>平原，这些"海洋"实际上是由古老的火山熔岩流形成的。它们的形成时间大约在30到40亿年前，此后月球就几乎没有大规模的岩浆活动了。但背面呢？背面几乎没有这样的"月海"，取而代之的是密密麻麻的陨石坑和高耸的山脉，以及一层厚厚的、没有明显特征的月壤。这种"</p>
+<p>"现象——正面和背面在形貌、成分、月壳厚度、岩浆活动等方面的显著差异——一直是行星科学界最令人困惑的未解之谜。嫦娥六号的发现表明，月球背面的岩浆活动确实比正面更年轻，这为解释月球二分性提供了全新的线索。</p>
+            </div>
+
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    中国成就：月球死了吗？这个问题困扰了科学家几百年。传统观点认为，月球在...
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    关于这个话题，你还有什么想问的吗？
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">用心观察，处处是科学</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">探索精神</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科普中国</span>
+                
+                <a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=722174" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+        
+        <section class="topic-section">
+            <div class="topic-header">
+                <span class="topic-icon">🔬</span>
+                <h2 class="topic-title">科学创新</h2>
+                <span class="topic-subtitle">🔬</span>
+            </div>
+            
+            
+            <div class="article-main-image">
+                <img src="images/current_science_src_0.jpg" alt="月球背面晒得更热？">
+            </div>
+            
+            
+            <h3 class="article-title">月球背面晒得更热？</h3>
+            
+            <span class="article-highlight">💡 地球磁场让月球正面的太阳风变慢啦！</span>
+            
+            
+            <div class="article-body">
+                <p>你有没有想过，月亮也有“正反脸”的区别吗？最近科学家发现，月亮背面的太阳风比正面更强哦！🌞</p>
+<p>这是因为地球像个巨大的“减速带”。当月亮转到地球背后时，太阳风会被地球磁场拦一下，速度变慢。但月亮背面一直对着外太空，没被拦住，所以太阳粒子冲得更猛！⚡️</p>
+<p>科学家通过比较月球正面和背面的土壤样本，发现了这个秘密。背面土壤里的稀有气体分布不同，证明那里的太阳风能量更高。这就像有人走路慢吞吞，有人跑步急匆匆！🏃‍♂️</p>
+<p>原来，我们熟悉的月亮背后还藏着这么多有趣的故事。只要保持好奇，去探索未知的角落，就能揭开宇宙的秘密。🌌</p>
+            </div>
+
+            
+            <div class="article-gallery">
+                
+                <div class="gallery-item">
+                    <img src="images/current_science_src_1.jpg" alt="配图">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="images/current_science_src_2.gif" alt="配图">
+                </div>
+                
+            </div>
+            
+
+            <div class="knowledge-box">
+                <div class="knowledge-title">🔍 知识小卡片</div>
+                <div class="knowledge-content">
+                    科学原理：地球磁场让月球正面的太阳风变慢啦！
+                    
+                </div>
+            </div>
+
+            <div class="fun-fact-box">
+                <div class="fun-fact-title">😜 趣味问答</div>
+                <div class="fun-fact-content">
+                    你知道吗？科学家们还在研究更多有趣的发现呢！
+                    
+                </div>
+            </div>
+
+            
+            <div class="golden-quote">
+                <div class="golden-label">✨ 金句素材</div>
+                <div class="golden-content">保持好奇心，去探索未知的角落吧！</div>
+            </div>
+            
+            
+            <div class="personality-box">
+                <div class="personality-label">🌟 人格点亮</div>
+                <div class="personality-content">探索精神</div>
+            </div>
+            
+            
+            
+            <div class="article-meta">
+                <span class="article-source">来源：科学网</span>
+                
+                <a href="https://news.sciencenet.cn/htmlnews/2026/7/568326.shtm" class="article-link" target="_blank">查看原文 →</a>
+                
+            </div>
+            
+        </section>
+        
+        
+
+        <footer class="magazine-footer">
+            <p class="footer-title">少年科普周刊</p>
+            <p class="footer-text">每天下午4点，带你探索科学的奇妙世界</p>
+            <p class="footer-text">第 15 期 · 2026年07月24日</p>
+            <p class="footer-slogan">
+                保持好奇，热爱探索，每个孩子都是小小科学家 🔬
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
